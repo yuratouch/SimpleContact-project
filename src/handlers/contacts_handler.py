@@ -6,7 +6,6 @@ from src.modules.phone import Phone
 from src.modules.birthday import Birthday
 from src.modules.exceptions import PhoneVerificationError
 
-
 # TODO: Improvement. Review error decorator for all functions
 
 @input_error
@@ -17,14 +16,13 @@ def add_contact(args:list, book) -> str:
 
     if record is None:
         record = Contact(name)
-        book.add_record(record)
+        book.add(record)
         message = "Contact added."
         
     if phone:
         record.add_phone(phone)
     
     return message
-
 
 @input_error
 def change_contact(args:list, book) -> str:

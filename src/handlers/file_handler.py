@@ -1,17 +1,14 @@
 import pickle
-from src.modules.book import AddressBook
+from src.modules.contact_book import ContactBook
 
-def save_to_file(book: AddressBook, filename="addressbook.pkl") -> None:  
+def save_to_file(book: ContactBook, filename="addressbook.pkl") -> None:  
     with open(filename, "wb") as file:
         pickle.dump(book, file)
 
-def get_contacts(filename="addressbook.pkl") -> AddressBook:
-    book = AddressBook()
+def get_contacts(filename="addressbook.pkl") -> ContactBook:
     try:
         with open(filename, "rb") as file:
-            book = pickle.load(file)
-            return book
-        
+            return pickle.load(file)
     except FileNotFoundError:
-        return book
+        return ContactBook()
     
