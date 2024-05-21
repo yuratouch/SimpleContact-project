@@ -16,7 +16,7 @@ def add_contact(args: list, book) -> str:
     message = "Contact updated."
 
     if record is None:
-        record = ContactBook(name)
+        record = Contact(name)
         book.add(record)
         message = "Contact added."
 
