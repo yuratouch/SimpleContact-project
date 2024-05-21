@@ -1,12 +1,13 @@
 from datetime import datetime, timedelta
 from src.modules.book import Book
 
+
 class ContactBook(Book):
     def add(self, contact):
         self.data[contact.name] = contact
 
     # TODO: Add edit method for ContactBook / SC-9. Feature-1. Save contacts.
-    def edit():
+    def edit(self, contact):
         pass
 
     def find(self, name):
@@ -33,7 +34,7 @@ class ContactBook(Book):
 
                 if birthday_this_year < current_date:
                     continue
-                
+
                 # TODO: Change static value to days_to parameter
                 # if (birthday_this_year - current_date).days > days_to:
                 if (birthday_this_year - current_date).days > 7:
@@ -46,12 +47,14 @@ class ContactBook(Book):
                 else:
                     congratulation_date = birthday_this_year
 
-                congratulations.append({"name": contact_name.name.value, "congratulation_date": congratulation_date.strftime("%d.%m.%Y")})
-            except: AttributeError
-        
+                congratulations.append(
+                    {"name": contact_name.name.value, "congratulation_date": congratulation_date.strftime("%d.%m.%Y")})
+            except AttributeError:
+                return "Error"
+
         if len(congratulations) > 0:
             return congratulations
-        else: 
+        else:
             return "No birthdays in upcoming week"
 
     # TODO: Update __str__ method. show list of contacts + days_to 
