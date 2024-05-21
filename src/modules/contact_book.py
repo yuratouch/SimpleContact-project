@@ -1,6 +1,5 @@
 from datetime import datetime, timedelta
 from src.modules.book import Book
-from src.modules.contact import Contact
 
 
 class ContactBook(Book):

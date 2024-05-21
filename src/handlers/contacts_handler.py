@@ -1,4 +1,3 @@
-import pickle
 from datetime import datetime
 from src.handlers.error_handler import input_error
 from src.modules.contact import Contact
