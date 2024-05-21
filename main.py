@@ -47,7 +47,7 @@ def main():
             print(show_birthday(args, book))
 
         elif command == "birthdays":
-            print(show_upcoming_birthdays(book))
+            print(show_upcoming_birthdays(args, book))
 
         else:
             print("Invalid command.")

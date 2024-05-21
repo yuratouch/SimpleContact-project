@@ -1,7 +1,7 @@
 import pickle
 from datetime import datetime
 from src.handlers.error_handler import input_error
-from src.modules.contact import Contact
+from src.modules.contact_book import ContactBook
 from src.modules.phone import Phone
 from src.modules.birthday import Birthday
 from src.modules.exceptions import PhoneVerificationError
@@ -16,7 +16,7 @@ def add_contact(args: list, book) -> str:
     message = "Contact updated."
 
     if record is None:
-        record = Contact(name)
+        record = ContactBook(name)
         book.add(record)
         message = "Contact added."
 
@@ -88,5 +88,20 @@ def show_birthday(args: list, book) -> str:
     return "Contact not found."
 
 
-def show_upcoming_birthdays(book) -> list:
-    return book.get_upcoming_birthdays()
+def show_upcoming_birthdays(args:list, contact_book:ContactBook):
+
+    try:
+        next_days = args[0]
+
+        if int(next_days) <= 0:
+            return "Minimum days range is 1. Please enter valid value."
+        
+        upcoming_birthdays = contact_book.get_upcoming_birthdays(next_days)
+
+        if len(upcoming_birthdays) > 0:
+            return upcoming_birthdays
+        else:
+            return f"No upcoming birthdays in the next {next_days} days"
+    
+    except IndexError:
+        return contact_book.get_upcoming_birthdays()
