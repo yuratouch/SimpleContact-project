@@ -23,3 +23,5 @@ For the correct work of the application please follow next steps:
 7. Enjoy the result.
 
 Don't forget to deactivate virtual environment after you're done. -->
+
+<!-- Test -->
