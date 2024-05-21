@@ -1,5 +1,5 @@
 from src.modules.name import Name
-from src.modules.exceptions import PhoneVerificationError
+from src.modules.exceptions import (PhoneAlreadyExistsError, PhoneNotFoundError)
 from src.modules.phone import Phone
 from src.modules.birthday import Birthday
 
@@ -15,11 +15,16 @@ class Contact:
         if existing_phone is None:
             self.phones.append(Phone(phone))
 
-
     def remove_phone(self, phone):
         self.phones.remove(self.find_phone(phone))
 
     def edit_phone(self, old, new):
+        if self.find_phone(old) is None:
+            raise PhoneNotFoundError(old)
+
+        if self.find_phone(new):
+            raise PhoneAlreadyExistsError(new)
+
         for index in range(len(self.phones)):
             if self.phones[index].phone == old:
                 self.phones[index] = Phone(new)

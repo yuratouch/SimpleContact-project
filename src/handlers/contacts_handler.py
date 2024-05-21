@@ -35,15 +35,9 @@ def change_contact(args: list, book: ContactBook) -> str:
     contact = book.find(name)
 
     if contact:
-        for index in range(len(contact.phones)):
-            if contact.phones[index].phone == old:
-                try:
-                    contact.phones[index] = Phone(new)
-                    return "Contact updated."
-                except PhoneVerificationError as e:
-                    return e.message
+        contact.edit_phone(old, new)
 
-        return f"Contact {name} does not have entered phone number."
+        return f"Number changed successfully."
 
     return "Contact not found."
 
