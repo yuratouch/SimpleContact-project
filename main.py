@@ -39,6 +39,8 @@ def main():
         else:
             print("Invalid command.")
 
+    # TODO: add protection from ctrl+C. Because we will lost our data if app will close by this way
+
 
 if __name__ == "__main__":
     main()
