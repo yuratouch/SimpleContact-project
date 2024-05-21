@@ -5,19 +5,21 @@ from src.modules.contact_book import ContactBook
 from src.modules.phone import Phone
 from src.modules.birthday import Birthday
 from src.modules.exceptions import PhoneVerificationError
+from src.utils.input_parser import capitalize_name
+from src.handlers.file_handler import save_to_file
 
 
 # TODO: Improvement. Review error decorator for all functions
 
+@capitalize_name
 @input_error
-def add_contact(args: list, book) -> str:
+def add_contact(args: list, book: ContactBook) -> str:
     name, phone, *_ = args
     record = book.find(name)
     message = "Contact updated."
 
     if record is None:
-        record = Contact(name)
-        book.add(record)
+        record = book.create(name)
         message = "Contact added."
 
     if phone:
@@ -26,16 +28,17 @@ def add_contact(args: list, book) -> str:
     return message
 
 
+@capitalize_name
 @input_error
-def change_contact(args: list, book) -> str:
+def change_contact(args: list, book: ContactBook) -> str:
     name, old, new = args
-    record = book.find(name)
+    contact = book.find(name)
 
-    if record:
-        for index in range(len(record.phones)):
-            if record.phones[index].phone == old:
+    if contact:
+        for index in range(len(contact.phones)):
+            if contact.phones[index].phone == old:
                 try:
-                    record.phones[index] = Phone(new)
+                    contact.phones[index] = Phone(new)
                     return "Contact updated."
                 except PhoneVerificationError as e:
                     return e.message
@@ -45,6 +48,7 @@ def change_contact(args: list, book) -> str:
     return "Contact not found."
 
 
+@capitalize_name
 def show_phone(args: list, book) -> str:
     name = args[0]
     record = book.find(name)
@@ -64,6 +68,7 @@ def show_all(_: list, book: ContactBook) -> str:
     return res
 
 
+@capitalize_name
 def add_birthday(args: list, book) -> str:
     name, date = args
     record = book.find(name)
@@ -78,6 +83,7 @@ def add_birthday(args: list, book) -> str:
         return "Contact not found."
 
 
+@capitalize_name
 def show_birthday(args: list, book) -> str:
     name = args[0]
     record = book.find(name)
@@ -93,3 +99,7 @@ def show_birthday(args: list, book) -> str:
 
 def show_upcoming_birthdays(_: list, book) -> list:
     return book.get_upcoming_birthdays()
+
+
+def save_book(_: list, book):
+    save_to_file(book)

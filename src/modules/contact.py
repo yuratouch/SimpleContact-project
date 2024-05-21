@@ -10,11 +10,11 @@ class Contact:
         self.phones = []
         self.birthday = None
 
-    def add_phone(self, phone):
-        try:
+    def add_phone(self, phone: str):
+        existing_phone = self.find_phone(phone)
+        if existing_phone is None:
             self.phones.append(Phone(phone))
-        except PhoneVerificationError as e:
-            print(e.message)
+
 
     def remove_phone(self, phone):
         self.phones.remove(self.find_phone(phone))

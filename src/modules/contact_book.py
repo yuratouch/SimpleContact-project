@@ -1,16 +1,22 @@
 from datetime import datetime, timedelta
 from src.modules.book import Book
+from src.modules.contact import Contact
 
 
 class ContactBook(Book):
-    def add(self, contact):
+    def create(self, name: str) -> Contact:
+        contact = Contact(name=name)
+        self.add(contact)
+        return contact
+
+    def add(self, contact: Contact):
         self.data[contact.name] = contact
 
     # TODO: Add edit method for ContactBook / SC-9. Feature-1. Save contacts.
     def edit(self, contact):
         pass
 
-    def find(self, name):
+    def find(self, name: str) -> Contact:
         for contact_name, contact in self.data.items():
             if name == contact_name.name.value:
                 return contact
