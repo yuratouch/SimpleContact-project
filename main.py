@@ -2,7 +2,7 @@ from src.utils.input_parser import parse_input
 from src.handlers.file_handler import save_to_file, get_contacts
 from src.handlers.contacts_handler import (add_contact, change_contact, show_phone,
                                            show_all, add_birthday, show_birthday,
-                                           show_upcoming_birthdays)
+                                           show_upcoming_birthdays, save_book)
 
 comands_dict = {
     "add": add_contact,
@@ -12,6 +12,7 @@ comands_dict = {
     "show-birthday": show_birthday,
     "birthdays": show_upcoming_birthdays,
     "all": show_all,
+    "save": save_book,
 }
 
 
