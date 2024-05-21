@@ -1,0 +1,1 @@
+# TODO: Add note handler functions. Similar to contacts_handler.py
