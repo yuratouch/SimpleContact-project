@@ -33,8 +33,10 @@ def main():
             break
         elif command == "hello":
             print("How can I help you?")
+
         elif command in comands_dict:
             print(comands_dict[command](args, book))
+
         else:
             print("Invalid command.")
 
