@@ -5,13 +5,13 @@ from src.handlers.contacts_handler import (add_contact, change_contact, show_pho
                                            show_upcoming_birthdays)
 
 comands_dict = {
-    'add': add_contact,
-    'change': change_contact,
-    'phone': show_phone,
-    'add-birthday': add_birthday,
-    'show-birthday': show_birthday,
-    'birthdays': show_upcoming_birthdays,
-    'all': show_all,
+    "add": add_contact,
+    "change": change_contact,
+    "phone": show_phone,
+    "add-birthday": add_birthday,
+    "show-birthday": show_birthday,
+    "birthdays": show_upcoming_birthdays,
+    "all": show_all,
 }
 
 
@@ -27,16 +27,16 @@ def main():
         user_input = input("Enter a command: ")
         command, *args = parse_input(user_input)
 
-        if command in ['close', 'exit']:
+        if command in ["close", "exit"]:
             save_to_file(book)
-            print('Good bye!')
+            print("Good bye!")
             break
-        elif command == 'hello':
-            print('How can I help you?')
+        elif command == "hello":
+            print("How can I help you?")
         elif command in comands_dict:
             print(comands_dict[command](args, book))
         else:
-            print('Invalid command.')
+            print("Invalid command.")
 
 
 if __name__ == "__main__":
