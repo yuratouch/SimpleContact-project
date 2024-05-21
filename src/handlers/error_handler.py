@@ -8,5 +8,7 @@ def input_error(func):
             return "Please enter expected values (name, phone number)."
         except IndexError:
             return "Please enter name to check the related phone number."
+        except Exception as e:
+            return str(e)
 
     return inner

@@ -4,6 +4,16 @@ from src.handlers.contacts_handler import (add_contact, change_contact, show_pho
                                            show_all, add_birthday, show_birthday,
                                            show_upcoming_birthdays)
 
+comands_dict = {
+    "add": add_contact,
+    "change": change_contact,
+    "phone": show_phone,
+    "add-birthday": add_birthday,
+    "show-birthday": show_birthday,
+    "birthdays": show_upcoming_birthdays,
+    "all": show_all,
+}
+
 
 def main():
     book = get_contacts()
@@ -17,37 +27,15 @@ def main():
         user_input = input("Enter a command: ")
         command, *args = parse_input(user_input)
 
-        # TODO: Improvement. Optimize command checker (all commands in one collection(?)).
-
         if command in ["close", "exit"]:
             save_to_file(book)
             print("Good bye!")
             break
-
         elif command == "hello":
             print("How can I help you?")
 
-        elif command == "add":
-            print(add_contact(args, book))
-
-        elif command == "change":
-            print(change_contact(args, book))
-
-        elif command == "phone":
-            print(show_phone(args, book))
-
-        elif command == "all":
-            save_to_file(book)
-            print(show_all())
-
-        elif command == "add-birthday":
-            print(add_birthday(args, book))
-
-        elif command == "show-birthday":
-            print(show_birthday(args, book))
-
-        elif command == "birthdays":
-            print(show_upcoming_birthdays(args, book))
+        elif command in comands_dict:
+            print(comands_dict[command](args, book))
 
         else:
             print("Invalid command.")
