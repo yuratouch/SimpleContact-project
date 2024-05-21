@@ -2,6 +2,7 @@ import pickle
 from datetime import datetime
 from src.handlers.error_handler import input_error
 from src.modules.contact import Contact
+from src.modules.contact_book import ContactBook
 from src.modules.phone import Phone
 from src.modules.birthday import Birthday
 from src.modules.exceptions import PhoneVerificationError
@@ -55,10 +56,13 @@ def show_phone(args: list, book) -> str:
     return "Contact not found."
 
 
-def show_all(filename="addressbook.pkl") -> str:
-    with open(filename, "rb") as file:
-        book = pickle.load(file)
-        return book
+def show_all(_: list, book: ContactBook) -> str:
+    res = '\n'.join(
+        f'{record.name.value}{f'({record.birthday.value})' if record.birthday and record.birthday.value else ''}: '
+        f'{', '.join(phone.value for phone in record.phones) if record.phones else 'The contact has no phone numbers'}'
+        for record in book.values()
+    )
+    return res
 
 
 def add_birthday(args: list, book) -> str:
@@ -88,5 +92,5 @@ def show_birthday(args: list, book) -> str:
     return "Contact not found."
 
 
-def show_upcoming_birthdays(book) -> list:
+def show_upcoming_birthdays(_: list, book) -> list:
     return book.get_upcoming_birthdays()
