@@ -44,15 +44,15 @@ def change_contact(args: list, book) -> str:
 
     return "Contact not found."
 
-
+@input_error
 def show_phone(args: list, book) -> str:
-    name = args[0]
-    record = book.find(name)
-
+    if len(args) < 1:
+        raise Exception("🟡 Give me name please.")
+    
+    record = book.find()
     if record:
         return ', '.join(p.value for p in record.phones)
-
-    return "Contact not found."
+    return "🔴 Contact not found."
 
 
 def show_all(filename="addressbook.pkl") -> str:
