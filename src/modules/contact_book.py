@@ -21,7 +21,7 @@ class ContactBook(Book):
                 self.data.pop(contact_name)
                 break
 
-    def get_upcoming_birthdays(self, next_days: int = 7):
+    def get_upcoming_birthdays(self, next_days: int = 7) -> list:
         current_date = datetime.today().date()
         congratulations = []
 

@@ -88,8 +88,7 @@ def show_birthday(args: list, book) -> str:
     return "Contact not found."
 
 
-def show_upcoming_birthdays(args:list, contact_book:ContactBook):
-
+def show_upcoming_birthdays(args:list, contact_book:ContactBook) -> str:
     try:
         next_days = args[0]
 
@@ -97,11 +96,20 @@ def show_upcoming_birthdays(args:list, contact_book:ContactBook):
             return "Minimum days range is 1. Please enter valid value."
         
         upcoming_birthdays = contact_book.get_upcoming_birthdays(next_days)
+        result = f"In the next {next_days} days, birthdays will have:\n"
+        for birthday in upcoming_birthdays:
+            result += f"{birthday['name']}, congratulation date - {birthday['congratulation_date']}\n"
 
         if len(upcoming_birthdays) > 0:
-            return upcoming_birthdays
+            return result
         else:
             return f"No upcoming birthdays in the next {next_days} days"
     
     except IndexError:
-        return contact_book.get_upcoming_birthdays()
+        upcoming_birthdays = contact_book.get_upcoming_birthdays()        
+        result = f"In the next 7 days, birthdays will have:\n"
+
+        for birthday in upcoming_birthdays:
+            result += f"{birthday['name']}, congratulation date - {birthday['congratulation_date']}\n"
+        
+        return result
