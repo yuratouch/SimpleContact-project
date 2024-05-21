@@ -1,18 +1,15 @@
 from collections import UserDict
 
+
 class Book(UserDict):
-    @staticmethod
-    def add():
+    def add(self, value):
         pass
 
-    @staticmethod
-    def edit():
+    def edit(self, value):
         pass
 
-    @staticmethod
-    def find():
+    def find(self, value):
         pass
 
-    @staticmethod
-    def delete():
+    def delete(self, value):
         pass

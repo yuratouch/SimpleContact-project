@@ -7,23 +7,24 @@
 
 from src.modules.book import Book
 
-class NoteBookBook(Book):
+
+class NoteBook(Book):
     # TODO: SC-20. Feature 6. Save Notes
     def add(self, note):
         self.data[note.name] = note
 
     # TODO: SC-22. Feature 8.1 Edit Notes functionality
-    def edit():
+    def edit(self, note):
         pass
 
     # TODO: SC-21. Feature 7. Find Notes functionality
-    def find():
+    def find(self, note):
         pass
 
     # TODO: SC-23. Feature 8.2 Delete Notes functionality
-    def delete():
+    def delete(self, note):
         pass
 
     # TODO: SC-20. Feature 6. Save Notes
-    def __str__():
+    def __str__(self):
         pass

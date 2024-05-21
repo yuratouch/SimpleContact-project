@@ -1,6 +1,9 @@
 from src.utils.input_parser import parse_input
 from src.handlers.file_handler import save_to_file, get_contacts
-from src.handlers.contacts_handler import add_contact, change_contact, show_phone, show_all, add_birthday, show_birthday, show_upcoming_birthdays
+from src.handlers.contacts_handler import (add_contact, change_contact, show_phone,
+                                           show_all, add_birthday, show_birthday,
+                                           show_upcoming_birthdays)
+
 
 def main():
     book = get_contacts()
@@ -48,6 +51,7 @@ def main():
 
         else:
             print("Invalid command.")
+
 
 if __name__ == "__main__":
     main()

@@ -2,6 +2,7 @@ import re
 from src.modules.field import Field
 from src.modules.exceptions import PhoneVerificationError
 
+
 class Phone(Field):
     pattern = r'\d{10}$'
 
@@ -10,4 +11,4 @@ class Phone(Field):
         if re.match(Phone.pattern, phone):
             self.phone = phone
         else:
-             raise PhoneVerificationError(phone)
+            raise PhoneVerificationError(phone)

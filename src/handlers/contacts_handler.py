@@ -6,10 +6,11 @@ from src.modules.phone import Phone
 from src.modules.birthday import Birthday
 from src.modules.exceptions import PhoneVerificationError
 
+
 # TODO: Improvement. Review error decorator for all functions
 
 @input_error
-def add_contact(args:list, book) -> str:
+def add_contact(args: list, book) -> str:
     name, phone, *_ = args
     record = book.find(name)
     message = "Contact updated."
@@ -18,14 +19,15 @@ def add_contact(args:list, book) -> str:
         record = Contact(name)
         book.add(record)
         message = "Contact added."
-        
+
     if phone:
         record.add_phone(phone)
-    
+
     return message
 
+
 @input_error
-def change_contact(args:list, book) -> str:
+def change_contact(args: list, book) -> str:
     name, old, new = args
     record = book.find(name)
 
@@ -39,24 +41,27 @@ def change_contact(args:list, book) -> str:
                     return e.message
 
         return f"Contact {name} does not have entered phone number."
-    
+
     return "Contact not found."
 
-def show_phone(args:list, book) -> str:
+
+def show_phone(args: list, book) -> str:
     name = args[0]
     record = book.find(name)
 
     if record:
         return ', '.join(p.value for p in record.phones)
-    
+
     return "Contact not found."
+
 
 def show_all(filename="addressbook.pkl") -> str:
     with open(filename, "rb") as file:
-            book = pickle.load(file)
-            return book
-    
-def add_birthday(args:list, book) -> str:
+        book = pickle.load(file)
+        return book
+
+
+def add_birthday(args: list, book) -> str:
     name, date = args
     record = book.find(name)
 
@@ -66,10 +71,11 @@ def add_birthday(args:list, book) -> str:
             return f"Birthday added for {name}."
         except ValueError:
             return "Invalid date format. Please enter date in format DD.MM.YYYY"
-    else: 
+    else:
         return "Contact not found."
 
-def show_birthday(args:list, book) -> str:
+
+def show_birthday(args: list, book) -> str:
     name = args[0]
     record = book.find(name)
 
@@ -78,8 +84,9 @@ def show_birthday(args:list, book) -> str:
             return f"{name}'s birthday is {datetime.strftime(record.birthday.birthday, "%d.%m.%Y")}"
         except AttributeError:
             return f"No record about {name}'s birthday."
-        
+
     return "Contact not found."
+
 
 def show_upcoming_birthdays(book) -> list:
     return book.get_upcoming_birthdays()
