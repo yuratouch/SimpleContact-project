@@ -7,14 +7,24 @@ from src.modules.birthday import Birthday
 class Contact:
     def __init__(self, name):
         self.name = Name(name)
-        self.phones = []
+        self.phones:list[Phone] = []
         self.birthday = None
 
-    def add_phone(self, phone):
+    # Recursive function to save the phone number.
+    # It is called until the number is entered correctly
+    def add_phone(self, phone) -> bool:
         try:
-            self.phones.append(Phone(phone))
-        except PhoneVerificationError as e:
-            print(e.message)
+            phone_number = Phone(phone)
+            self.phones.append(phone_number)
+            return True
+        except PhoneVerificationError as error_message:
+            print(error_message)
+            new_phone = input("Type phone one more time or 'exit' to get back: ") # TODO Use colorama here, some yellow color
+            
+            if new_phone != "exit":
+                return self.add_phone(new_phone)
+            
+            return False
 
     def remove_phone(self, phone):
         self.phones.remove(self.find_phone(phone))
