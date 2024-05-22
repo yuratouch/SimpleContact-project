@@ -1,18 +1,27 @@
 from src.handlers.notes_handler import note_show_all, note_add, note_change, note_delete, note_find
 from src.utils.input_parser import parse_input
 from src.handlers.file_handler import get_contacts, get_notes, save_contacts_book, save_note_book
-from src.handlers.contacts_handler import (add_contact, change_contact, show_phone,
+from src.handlers.contacts_handler import (add_contact, add_phone, change_contact, show_phone,
                                            show_all, add_birthday, show_birthday,
-                                           show_upcoming_birthdays, add_email, add_address, show_contact, add_phone)
+                                           show_upcoming_birthdays, add_email, add_address,
+                                           edit_contact, edit_phone, edit_address, edit_email,
+                                           edit_birthday, show_contact)
 
 comands_dict = {
     "add-contact": add_contact,
     "add-phone": add_phone,
     "add-email": add_email,
     "add-address": add_address,
+    "add-birthday": add_birthday,
+
+    "edit-contact": edit_contact,
+    "edit-phone": edit_phone,
+    "edit-address": edit_address,
+    "edit-email": edit_email,
+    "edit-birthday": edit_birthday,
+
     "change": change_contact,
     "phone": show_phone,
-    "add-birthday": add_birthday,
     "show-birthday": show_birthday,
     "birthdays": show_upcoming_birthdays,
     "note-add": note_add,
