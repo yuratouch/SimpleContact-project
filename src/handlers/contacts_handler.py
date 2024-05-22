@@ -21,7 +21,9 @@ def add_contact(args: list, book: ContactBook) -> str:
         message = "Contact added."
 
     if phone:
-        record.add_phone(phone)
+        result_phone = record.add_phone(phone)
+        if not result_phone:
+            message += " Phone didn't"
 
     return message
 
