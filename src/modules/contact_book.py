@@ -54,12 +54,13 @@ class ContactBook(Book):
         return congratulations
 
     def __str__(self):
-        contacts = "List of contacts:"
-        for contact_name, contact in self.data.items():
-            contact_phones = ','.join(p.value for p in contact.phones)
-            try:
-                contact_birthday = datetime.strftime(contact.birthday.birthday, "%d.%m.%Y")
-            except AttributeError:
-                contact_birthday = ""
-            contacts = contacts + "\n" + contact_name.name.value + " [" + contact_phones + "]" + " " + contact_birthday
-        return contacts
+        res = "\n".join(
+            f"{record.name.value}"
+            f"{f'({record.birthday.value})' if record.birthday and record.birthday.value else ''}: "
+            f"{', '.join(phone.value for phone in record.phones) if record.phones else 'The contact has no phone'}"
+            f"{f' | Email: {record.email.value}' if record.email and record.email.value else ''}"
+            f"{f' | Address: {record.address.value}' if record.address and record.address.value else ''}"
+            for record in self.data.values()
+        )
+        return res
+

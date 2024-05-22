@@ -1,30 +1,31 @@
-# TODO: Add new class NoteBook(Book)
-# Class NoteBook should be duplicated from class AddressBook(UserDict)
-# Class NoteBook has 4 methods: add, edit, delete, find
-# Class ContactBook has custom __str__ method for the better instance presentation
-# Class ContactBook inherited from class Book
-# Class ContactBook uses UserDict functionality to store Notes
-
 from src.modules.book import Book
+from src.modules.note import Note
+from tabulate import tabulate
+import textwrap
 
 
 class NoteBook(Book):
-    # TODO: SC-20. Feature 6. Save Notes
-    def add(self, note):
-        self.data[note.name] = note
+    def add(self, note: Note):
+        self.data[note.title] = note
 
-    # TODO: SC-22. Feature 8.1 Edit Notes functionality
-    def edit(self, note):
-        pass
+    def find(self, title):
+        for _, note in self.data.items():
+            if title == note.title:
+                return note
 
-    # TODO: SC-21. Feature 7. Find Notes functionality
-    def find(self, note):
-        pass
+    def delete(self, delete_note: Note):
+        for _, note in self.data.items():
+            print()
+            if delete_note.title == note.title:
+                self.data.pop(note.title)
+                break
 
-    # TODO: SC-23. Feature 8.2 Delete Notes functionality
-    def delete(self, note):
-        pass
-
-    # TODO: SC-20. Feature 6. Save Notes
     def __str__(self):
-        pass
+        wrapped_table = []
+        for note in self.data.values():
+            wrapped_title = textwrap.fill(note.title, width=40)
+            wrapped_content = textwrap.fill(note.content, width=60)
+            wrapped_table.append([wrapped_title, wrapped_content])
+
+        res = "\n" + tabulate(wrapped_table, headers=["Titles", "Contents"], tablefmt="grid")
+        return res

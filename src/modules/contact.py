@@ -12,8 +12,7 @@ class Contact:
         self.birthday = None
         self.address = None
         self.email = None
-
-     
+    
     # Recursive function to save the phone number.
     # It is called until the number is entered correctly
     def add_phone(self, phone) -> bool:
