@@ -14,4 +14,4 @@ class Note:
         wrapped_title = textwrap.fill(self.title, width=40)
         wrapped_content = textwrap.fill(self.content, width=60)
         table = [[wrapped_title, wrapped_content]]
-        return tabulate(table, headers=["Titles", "Contents"], tablefmt="grid")
+        return tabulate(table, headers=["Title", "Content"], tablefmt="grid")

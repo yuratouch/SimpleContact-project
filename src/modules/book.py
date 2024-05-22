@@ -5,9 +5,6 @@ class Book(UserDict):
     def add(self, value):
         pass
 
-    def edit(self, value):
-        pass
-
     def find(self, value):
         pass
 

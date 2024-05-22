@@ -5,23 +5,24 @@ from src.handlers.contacts_handler import (add_contact, change_contact, show_pho
                                            show_all, add_birthday, show_birthday,
                                            show_upcoming_birthdays, add_email, add_address, show_contact, add_phone)
 
+# TODO: add commands: help, 
 comands_dict = {
-    "add-contact": add_contact,
-    "add-phone": add_phone,
-    "add-email": add_email,
-    "add-address": add_address,
-    "change": change_contact,
-    "phone": show_phone,
-    "add-birthday": add_birthday,
-    "show-birthday": show_birthday,
-    "birthdays": show_upcoming_birthdays,
+    "contact-add": add_contact,
+    "contact-phone": add_phone,
+    "contact-phone-change": change_contact, 
+    "contact-phone-show": show_phone,
+    "contact-email": add_email,
+    "contact-address": add_address,
+    "contact-birthday": add_birthday,
+    "contact-birthday-show": show_birthday,
+    "contact-birthdays": show_upcoming_birthdays,
+    "contact-show": show_contact,
     "note-add": note_add,
     "note-change": note_change,
     "note-find": note_find,
     "note-delete": note_delete,
     "note-show-all": note_show_all,
     "all": show_all,
-    "show-contact": show_contact,
 }
 
 
