@@ -18,7 +18,6 @@ class Contact:
         if existing_phone is None:
             self.phones.append(Phone(phone))
 
-
     def remove_phone(self, phone):
         self.phones.remove(self.find_phone(phone))
 

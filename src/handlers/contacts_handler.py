@@ -1,6 +1,5 @@
 from datetime import datetime
 from src.handlers.error_handler import input_error
-from src.modules.contact import Contact
 from src.modules.contact_book import ContactBook
 from src.modules.phone import Phone
 from src.modules.birthday import Birthday
@@ -94,6 +93,7 @@ def show_phone(args: list, book) -> str:
 
     return "Contact not found."
 
+
 @input_error
 def show_contact(args: list, book):
     name = args[0]
@@ -101,6 +101,7 @@ def show_contact(args: list, book):
     if contact:
         return contact
     return "Contact not found."
+
 
 def show_all(_: list, book: ContactBook) -> str:
     return book
@@ -135,13 +136,13 @@ def show_birthday(args: list, book) -> str:
     return "Contact not found."
 
 
-def show_upcoming_birthdays(args:list, contact_book:ContactBook) -> str:
+def show_upcoming_birthdays(args: list, contact_book: ContactBook) -> str:
     try:
         next_days = args[0]
 
         if int(next_days) <= 0:
             return "Minimum days range is 1. Please enter valid value."
-        
+
         upcoming_birthdays = contact_book.get_upcoming_birthdays(next_days)
         result = f"In the next {next_days} days, birthdays will have:\n"
         for birthday in upcoming_birthdays:
@@ -151,12 +152,12 @@ def show_upcoming_birthdays(args:list, contact_book:ContactBook) -> str:
             return result
         else:
             return f"No upcoming birthdays in the next {next_days} days"
-    
+
     except IndexError:
-        upcoming_birthdays = contact_book.get_upcoming_birthdays()        
+        upcoming_birthdays = contact_book.get_upcoming_birthdays()
         result = f"In the next 7 days, birthdays will have:\n"
 
         for birthday in upcoming_birthdays:
             result += f"{birthday['name']}, congratulation date - {birthday['congratulation_date']}\n"
-        
+
         return result

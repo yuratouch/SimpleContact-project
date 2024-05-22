@@ -1,7 +1,6 @@
 from src.handlers.error_handler import input_error
 from src.modules.note import Note
 from src.modules.note_book import NoteBook
-import readline
 
 
 # TODO: Improvement. Review error decorator for all functions
