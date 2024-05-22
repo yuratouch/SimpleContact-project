@@ -54,6 +54,13 @@ def show_phone(args: list, book) -> str:
 
     return "Contact not found."
 
+@input_error
+def show_contact(args: list, book):
+    name = args[0]
+    contact = book.find(name)
+    if contact:
+        return contact
+    return "Contact not found."
 
 def show_all(_: list, book: ContactBook) -> str:
     res = "\n".join(
