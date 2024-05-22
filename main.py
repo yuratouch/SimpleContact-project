@@ -2,20 +2,29 @@ from src.utils.input_parser import parse_input
 from src.handlers.file_handler import save_to_file, get_contacts
 from src.handlers.contacts_handler import (add_contact, add_phone, change_contact, show_phone,
                                            show_all, add_birthday, show_birthday,
-                                           show_upcoming_birthdays, add_email, add_address)
+                                           show_upcoming_birthdays, add_email, add_address,
+                                           edit_contact, edit_phone, edit_address, edit_email,
+                                           edit_birthday)
 
 comands_dict = {
     "add-contact": add_contact,
     "add-phone": add_phone,
     "add-email": add_email,
     "add-address": add_address,
+    "add-birthday": add_birthday,
+
+    "edit-contact": edit_contact,
+    "edit-phone": edit_phone,
+    "edit-address": edit_address,
+    "edit-email": edit_email,
+    "edit-birthday": edit_birthday,
+
     "change": change_contact,
     "phone": show_phone,
-    "add-birthday": add_birthday,
+
     "show-birthday": show_birthday,
     "birthdays": show_upcoming_birthdays,
     "all": show_all,
-
 }
 
 
