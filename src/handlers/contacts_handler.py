@@ -73,7 +73,7 @@ def change_contact(args: list, book: ContactBook) -> str:
 
     if contact:
         for index in range(len(contact.phones)):
-            if contact.phones[index].phone == old:
+            if contact.phones[index].value == old:
                 try:
                     contact.phones[index] = Phone(new)
                     return "Contact updated."

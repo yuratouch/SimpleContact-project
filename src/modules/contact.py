@@ -1,3 +1,4 @@
+from src.modules.exceptions import PhoneVerificationError
 from src.modules.name import Name
 from src.modules.phone import Phone
 from src.modules.birthday import Birthday
@@ -8,11 +9,11 @@ from src.modules.address import Address
 class Contact:
     def __init__(self, name):
         self.name = Name(name)
-        self.phones:list[Phone] = []
+        self.phones: list[Phone] = []
         self.birthday = None
         self.address = None
         self.email = None
-    
+
     # Recursive function to save the phone number.
     # It is called until the number is entered correctly
     def add_phone(self, phone) -> bool:
@@ -22,24 +23,25 @@ class Contact:
             return True
         except PhoneVerificationError as error_message:
             print(error_message)
-            new_phone = input("Type phone one more time or 'exit' to get back: ") # TODO Use colorama here, some yellow color
-            
+            new_phone = input(
+                "Type phone one more time or 'exit' to get back: ")  # TODO Use colorama here, some yellow color
+
             if new_phone != "exit":
                 return self.add_phone(new_phone)
-            
+
             return False
-          
+
     def remove_phone(self, phone):
         self.phones.remove(self.find_phone(phone))
 
     def edit_phone(self, old, new):
         for index in range(len(self.phones)):
-            if self.phones[index].phone == old:
+            if self.phones[index].value == old:
                 self.phones[index] = Phone(new)
 
     def find_phone(self, phone_input):
         for phone in self.phones:
-            if phone_input == phone.phone:
+            if phone_input == phone.value:
                 return phone
 
     def add_birthday(self, birthday):
