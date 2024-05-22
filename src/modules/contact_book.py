@@ -37,50 +37,40 @@ class ContactBook(Book):
                 self.data.pop(contact_name)
                 break
 
-    # TODO: Add extra parameter days_to for method get_upcoming_birthdays
-    # def get_upcoming_birthdays(self, days_to: int = 7):
-    def get_upcoming_birthdays(self):
+    def get_upcoming_birthdays(self, next_days: int = 7) -> list:
         current_date = datetime.today().date()
         congratulations = []
 
         for contact_name, contact in self.data.items():
-            try:
-                contact_birthday = contact.birthday.birthday.date()
-                birthday_this_year = contact_birthday.replace(year=current_date.year)
+            contact_birthday = contact.birthday.birthday.date()
+            birthday_this_year = contact_birthday.replace(year=current_date.year)
 
-                if birthday_this_year < current_date:
-                    continue
+            if birthday_this_year < current_date:
+                continue
 
-                # TODO: Change static value to days_to parameter
-                # if (birthday_this_year - current_date).days > days_to:
-                if (birthday_this_year - current_date).days > 7:
-                    continue
+            if (birthday_this_year - current_date).days > int(next_days):
+                continue
 
-                if birthday_this_year.weekday() == 5:
-                    congratulation_date = birthday_this_year + timedelta(days=2)
-                elif birthday_this_year.weekday() == 6:
-                    congratulation_date = birthday_this_year + timedelta(days=1)
-                else:
-                    congratulation_date = birthday_this_year
+            if birthday_this_year.weekday() == 5:
+                congratulation_date = birthday_this_year + timedelta(days=2)
+            elif birthday_this_year.weekday() == 6:
+                congratulation_date = birthday_this_year + timedelta(days=1)
+            else:
+                congratulation_date = birthday_this_year
 
-                congratulations.append(
-                    {"name": contact_name.name.value, "congratulation_date": congratulation_date.strftime("%d.%m.%Y")})
-            except AttributeError:
-                return "Error"
+            congratulations.append(
+                {"name": contact_name.name.value, "congratulation_date": congratulation_date.strftime("%d.%m.%Y")})
 
-        if len(congratulations) > 0:
-            return congratulations
-        else:
-            return "No birthdays in upcoming week"
+        return congratulations
 
-    # TODO: Update __str__ method. show list of contacts + days_to 
     def __str__(self):
-        contacts = "List of contacts:"
-        for contact_name, contact in self.data.items():
-            contact_phones = ','.join(p.value for p in contact.phones)
-            try:
-                contact_birthday = datetime.strftime(contact.birthday.birthday, "%d.%m.%Y")
-            except AttributeError:
-                contact_birthday = ""
-            contacts = contacts + "\n" + contact_name.name.value + " [" + contact_phones + "]" + " " + contact_birthday
-        return contacts
+        res = "\n".join(
+            f"{record.name.value}"
+            f"{f'({record.birthday.value})' if record.birthday and record.birthday.value else ''}: "
+            f"{', '.join(phone.value for phone in record.phones) if record.phones else 'The contact has no phone'}"
+            f"{f' | Email: {record.email.value}' if record.email and record.email.value else ''}"
+            f"{f' | Address: {record.address.value}' if record.address and record.address.value else ''}"
+            for record in self.data.values()
+        )
+        return res
+
