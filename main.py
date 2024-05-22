@@ -2,7 +2,8 @@ from src.utils.input_parser import parse_input
 from src.handlers.file_handler import save_to_file, get_contacts
 from src.handlers.contacts_handler import (add_contact, add_phone, change_contact, show_phone,
                                            show_all, add_birthday, show_birthday,
-                                           show_upcoming_birthdays, add_email, add_address)
+                                           show_upcoming_birthdays, add_email, add_address, show_contact)
+
 
 comands_dict = {
     "add-contact": add_contact,
@@ -15,8 +16,7 @@ comands_dict = {
     "show-birthday": show_birthday,
     "birthdays": show_upcoming_birthdays,
     "all": show_all,
-
-}
+    "show-contact": show_contact,
 
 
 def main():
@@ -37,8 +37,10 @@ def main():
             break
         elif command == "hello":
             print("How can I help you?")
+
         elif command in comands_dict:
             print(comands_dict[command](args, book))
+
         else:
             print("Invalid command.")
 
