@@ -5,8 +5,7 @@ from src.modules.contact_book import ContactBook
 from src.modules.phone import Phone
 from src.modules.birthday import Birthday
 from src.modules.exceptions import PhoneVerificationError
-from src.utils.input_parser import capitalize_name
-from src.handlers.file_handler import save_to_file
+from src.utils.capitalizer import capitalize_name
 
 
 # TODO: Improvement. Review error decorator for all functions
@@ -26,6 +25,43 @@ def add_contact(args: list, book: ContactBook) -> str:
         record.add_phone(phone)
 
     return message
+
+
+@capitalize_name
+@input_error
+def add_phone(args: list, book: ContactBook) -> str:
+    name, phone, *_ = args
+    record = book.find(name)
+    if record is None:
+        return "Contact not found."
+
+    record.add_phone(phone)
+    return "Contact updated."
+
+
+@capitalize_name
+@input_error
+def add_email(args: list, book: ContactBook) -> str:
+    name, email, *_ = args
+    record = book.find(name)
+    if record is None:
+        return "Contact not found."
+
+    record.add_email(email)
+    return "Contact updated."
+
+
+@capitalize_name
+@input_error
+def add_address(args: list, book: ContactBook) -> str:
+    name, *address_list = args
+    address = " ".join(address_list)
+    record = book.find(name)
+    if record is None:
+        return "Contact not found."
+
+    record.add_address(address)
+    return "Contact updated."
 
 
 @capitalize_name
@@ -57,6 +93,8 @@ def show_all(_: list, book: ContactBook) -> str:
     res = "\n".join(
         f"{record.name.value}{f"({record.birthday.value})" if record.birthday and record.birthday.value else ""}: "
         f"{", ".join(phone.value for phone in record.phones) if record.phones else "The contact has no phone numbers"}"
+        f"{f" | Email: {record.email.value}" if record.email and record.email.value else ""}"
+        f"{f" | Address:  {record.address.value}" if record.address and record.address.value else ""}"
         for record in book.values()
     )
     return res
@@ -93,7 +131,3 @@ def show_birthday(args: list, book) -> str:
 
 def show_upcoming_birthdays(_: list, book) -> list:
     return book.get_upcoming_birthdays()
-
-
-def save_book(_: list, book):
-    save_to_file(book)
