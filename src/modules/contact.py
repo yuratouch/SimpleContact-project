@@ -1,7 +1,8 @@
 from src.modules.name import Name
-from src.modules.exceptions import PhoneVerificationError
 from src.modules.phone import Phone
 from src.modules.birthday import Birthday
+from src.modules.email import Email
+from src.modules.address import Address
 
 
 class Contact:
@@ -9,6 +10,8 @@ class Contact:
         self.name = Name(name)
         self.phones = []
         self.birthday = None
+        self.address = None
+        self.email = None
 
     def add_phone(self, phone: str):
         existing_phone = self.find_phone(phone)
@@ -35,7 +38,21 @@ class Contact:
         except ValueError as e:
             print(e)
 
+    def add_email(self, email):
+        try:
+            self.email = Email(email)
+        except ValueError as e:
+            print(e)
+
+    def add_address(self, address):
+        try:
+            self.address = Address(address)
+        except ValueError as e:
+            print(e)
+
     def __str__(self):
         return (f"Contact name: {self.name.value},"
                 f" phones: {'; '.join(p.value for p in self.phones)},"
-                f" birthday: {self.birthday}")
+                f" birthday: {self.birthday}"
+                f" email: {self.email}"
+                f" address: {self.address}")
