@@ -98,9 +98,9 @@ def show_phone(args: list, book) -> str:
 def show_all(_: list, book: ContactBook) -> str:
     res = "\n".join(
         f"{record.name.value}{f"({record.birthday.value})" if record.birthday and record.birthday.value else ""}: "
-        f"{", ".join(phone.value for phone in record.phones) if record.phones else "The contact has no phone numbers"} "
-        f"{f" | Email: {record.email.value}" if record.email and record.email.value else "_"} "
-        f"{f" | Address:  {record.address.value}" if record.address and record.address.value else "_"} "
+        f"{", ".join(phone.value for phone in record.phones) if record.phones else "The contact has no phone numbers"}"
+        f"{f" | Email: {record.email.value}" if record.email and record.email.value else ""}"
+        f"{f" | Address:  {record.address.value}" if record.address and record.address.value else ""}"
         for record in book.values()
     )
     return res
