@@ -1,4 +1,4 @@
-from src.modules.exceptions import PhoneVerificationError
+from src.modules.exceptions import PhoneVerificationError, EmailVerificationError
 from src.modules.name import Name
 from src.modules.phone import Phone
 from src.modules.birthday import Birthday
@@ -12,7 +12,7 @@ class Contact:
         self.phones: list[Phone] = []
         self.birthday = None
         self.address = None
-        self.email = None
+        self.email: Email|None = None
 
     def add_phone(self, phone) -> bool:
         try:
@@ -62,8 +62,16 @@ class Contact:
     def add_email(self, email: str):
         try:
             self.email = Email(email)
-        except ValueError as e:
-            print(e)
+            return True
+        except EmailVerificationError as error_message:
+            print(error_message)
+            new_email = input(
+                "Type Email one more time or 'exit' to get back: ")  # TODO Use colorama here, some yellow color
+
+            if new_email != "exit":
+                return self.add_email(new_email)
+
+            return False
 
     def edit_email(self, new_email: str):
         if self.email and new_email == self.email.value:
