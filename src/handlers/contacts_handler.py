@@ -56,12 +56,7 @@ def show_phone(args: list, book) -> str:
 
 
 def show_all(_: list, book: ContactBook) -> str:
-    res = "\n".join(
-        f"{record.name.value}{f"({record.birthday.value})" if record.birthday and record.birthday.value else ""}: "
-        f"{", ".join(phone.value for phone in record.phones) if record.phones else "The contact has no phone numbers"}"
-        for record in book.values()
-    )
-    return res
+    return book
 
 
 def add_birthday(args: list, book) -> str:
