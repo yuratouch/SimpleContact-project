@@ -3,10 +3,14 @@ from src.utils.input_parser import parse_input
 from src.handlers.file_handler import get_contacts, get_notes, save_contacts_book, save_note_book
 from src.handlers.contacts_handler import (add_contact, change_contact, show_phone,
                                            show_all, add_birthday, show_birthday,
-                                           show_upcoming_birthdays,show_contact)
+                                           show_upcoming_birthdays, add_email, add_address, show_contact)
+
 
 comands_dict = {
-    "add": add_contact,
+    "add-contact": add_contact,
+    "add-phone": add_phone,
+    "add-email": add_email,
+    "add-address": add_address,
     "change": change_contact,
     "phone": show_phone,
     "add-birthday": add_birthday,
@@ -19,7 +23,6 @@ comands_dict = {
     "note-show-all": note_show_all,
     "all": show_all,
     "show-contact": show_contact,
-}
 
 
 def main():
