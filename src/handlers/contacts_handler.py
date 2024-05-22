@@ -5,19 +5,20 @@ from src.modules.contact_book import ContactBook
 from src.modules.phone import Phone
 from src.modules.birthday import Birthday
 from src.modules.exceptions import PhoneVerificationError
+from src.utils.capitalizer import capitalize_name
 
 
 # TODO: Improvement. Review error decorator for all functions
 
+@capitalize_name
 @input_error
-def add_contact(args: list, book) -> str:
+def add_contact(args: list, book: ContactBook) -> str:
     name, phone, *_ = args
     record = book.find(name)
     message = "Contact updated."
 
     if record is None:
-        record = Contact(name)
-        book.add(record)
+        record = book.create(name)
         message = "Contact added."
 
     if phone:
@@ -26,16 +27,54 @@ def add_contact(args: list, book) -> str:
     return message
 
 
+@capitalize_name
 @input_error
-def change_contact(args: list, book) -> str:
-    name, old, new = args
+def add_phone(args: list, book: ContactBook) -> str:
+    name, phone, *_ = args
     record = book.find(name)
+    if record is None:
+        return "Contact not found."
 
-    if record:
-        for index in range(len(record.phones)):
-            if record.phones[index].phone == old:
+    record.add_phone(phone)
+    return "Contact updated."
+
+
+@capitalize_name
+@input_error
+def add_email(args: list, book: ContactBook) -> str:
+    name, email, *_ = args
+    record = book.find(name)
+    if record is None:
+        return "Contact not found."
+
+    record.add_email(email)
+    return "Contact updated."
+
+
+@capitalize_name
+@input_error
+def add_address(args: list, book: ContactBook) -> str:
+    name, *address_list = args
+    address = " ".join(address_list)
+    record = book.find(name)
+    if record is None:
+        return "Contact not found."
+
+    record.add_address(address)
+    return "Contact updated."
+
+
+@capitalize_name
+@input_error
+def change_contact(args: list, book: ContactBook) -> str:
+    name, old, new = args
+    contact = book.find(name)
+
+    if contact:
+        for index in range(len(contact.phones)):
+            if contact.phones[index].phone == old:
                 try:
-                    record.phones[index] = Phone(new)
+                    contact.phones[index] = Phone(new)
                     return "Contact updated."
                 except PhoneVerificationError as e:
                     return e.message
@@ -45,6 +84,7 @@ def change_contact(args: list, book) -> str:
     return "Contact not found."
 
 
+@capitalize_name
 def show_phone(args: list, book) -> str:
     name = args[0]
     record = book.find(name)
@@ -66,11 +106,14 @@ def show_all(_: list, book: ContactBook) -> str:
     res = "\n".join(
         f"{record.name.value}{f"({record.birthday.value})" if record.birthday and record.birthday.value else ""}: "
         f"{", ".join(phone.value for phone in record.phones) if record.phones else "The contact has no phone numbers"}"
+        f"{f" | Email: {record.email.value}" if record.email and record.email.value else ""}"
+        f"{f" | Address:  {record.address.value}" if record.address and record.address.value else ""}"
         for record in book.values()
     )
     return res
 
 
+@capitalize_name
 def add_birthday(args: list, book) -> str:
     name, date = args
     record = book.find(name)
@@ -85,6 +128,7 @@ def add_birthday(args: list, book) -> str:
         return "Contact not found."
 
 
+@capitalize_name
 def show_birthday(args: list, book) -> str:
     name = args[0]
     record = book.find(name)
