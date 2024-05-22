@@ -21,6 +21,16 @@ class ContactBook(Book):
             if name == contact_name.value:
                 return contact
 
+    def rename(self, old_name: str, new_name: str):
+        old_contact = None
+        for contact_name, _ in self.data.items():
+            if old_name == contact_name.name.value:
+                old_contact = self.data.pop(contact_name)
+                break
+        if old_contact:
+            old_contact.edit_name(new_name)
+            self.add(old_contact)
+
     def delete(self, name):
         for contact_name, _ in self.data.items():
             if name == contact_name.value:
