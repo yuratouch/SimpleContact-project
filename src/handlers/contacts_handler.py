@@ -5,8 +5,7 @@ from src.modules.contact_book import ContactBook
 from src.modules.phone import Phone
 from src.modules.birthday import Birthday
 from src.modules.exceptions import PhoneVerificationError
-from src.utils.input_parser import capitalize_name
-from src.handlers.file_handler import save_to_file
+from src.utils.capitalizer import capitalize_name
 
 
 # TODO: Improvement. Review error decorator for all functions
