@@ -1,5 +1,4 @@
 class PhoneVerificationError(Exception):
-    def __init__(self, phone):
-        self.phone = phone
-        self.message = f"Invalid phone number: {phone}"
+    def __init__(self, message):
+        self.message = message
         super().__init__(self.message)
