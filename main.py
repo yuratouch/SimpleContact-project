@@ -5,7 +5,7 @@ from src.handlers.contacts_handler import (add_contact, add_phone, change_contac
                                            show_all, add_birthday, show_birthday,
                                            show_upcoming_birthdays, add_email, add_address,
                                            edit_contact, edit_phone, edit_address, edit_email,
-                                           edit_birthday)
+                                           edit_birthday, show_contact)
 
 comands_dict = {
     "add-contact": add_contact,
@@ -22,7 +22,6 @@ comands_dict = {
 
     "change": change_contact,
     "phone": show_phone,
-    "add-birthday": add_birthday,
     "show-birthday": show_birthday,
     "birthdays": show_upcoming_birthdays,
     "note-add": note_add,
@@ -61,8 +60,6 @@ def main():
                 print(f"Invalid command {command}.")
         except Exception as e:
             print(f"Invalid command {e}.")
-
-    # TODO: add protection from ctrl+C. Because we will lost our data if app will close by this way
 
 
 if __name__ == "__main__":

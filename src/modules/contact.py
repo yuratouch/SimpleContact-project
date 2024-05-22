@@ -47,12 +47,12 @@ class Contact:
             raise Exception(f"Phone already exist: {new}")
 
         for index in range(len(self.phones)):
-            if self.phones[index].phone == old:
+            if self.phones[index].value == old:
                 self.phones[index] = Phone(new)
 
     def find_phone(self, phone_input: str):
         for phone in self.phones:
-            if phone_input == phone.phone:
+            if phone_input == phone.value:
                 return phone
 
     def add_birthday(self, birthday: str):
@@ -82,7 +82,6 @@ class Contact:
             raise Exception(new_address)
 
         self.address = Address(new_address)
-
 
     def __str__(self):
         return (f"Contact name: {self.name.value},"

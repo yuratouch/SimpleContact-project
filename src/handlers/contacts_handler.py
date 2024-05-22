@@ -24,6 +24,7 @@ def add_contact(args: list, book: ContactBook) -> str:
 
     return message
 
+
 @capitalize_name
 @input_error
 def add_phone(args: list, book: ContactBook) -> str:
