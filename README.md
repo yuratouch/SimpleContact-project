@@ -34,50 +34,114 @@ For detailed information about a specific logging level, use the following comma
 ## Contact Commands
 
 - `add-contact *Name* *Phone*`:
-add Oleksandr 0987654321
-Add a new contact with a name and phone number
+Syntax: `add-contact *Name* *Phone*`
+Example: `add-contact Oleksandr 0977654321`
+Description: Adds a new contact with a specified name and phone number.
 
 - `add-phone *Name* *Phone*`:
-add Oleksandr 0987654321 1234567890
-Add an additional phone number to an existing contact.
+Syntax: `add-phone *Name* *Phone*`
+Example: `add-phone Oleksandr 0971234567`
+Description: Adds an additional phone number to an existing contact.
 
 - `add-email *Name* *Email*`:
-add-email Oleksandr example@mail.com 
-Add an email address to a contact.
+Syntax: `add-email *Name* *Email*`
+Example: `add-email Oleksandr example@mail.com`
+Description: Adds an email address to a contact.
 
 - `add-address *Name* *Address*`:
-add-address Oleksandr WalkStreet 7  
-Add an address to a contact.
+Syntax: `add-address *Name* *Address*`
+Example: `add-address Oleksandr WalkStreet 7`
+Description: Adds an address to a contact.
+
 - `add-birthday *Name* *Birthday*`:
-add-birthday Oleksandr 01.06.1999
-Add a birthday to a contact.
-- `show-contact *Name*`:
-show-contact Oleksandr 
-Display information about a contact by name.
-- `show-all-contacts`: 
-Show all contacts.
-- `show-birthdays *days_to*`: 
-integer parameter days_to: Show upcoming birthdays within a specified number of days.
-- `edit-contact *Name* new-*Name*`: 
-Edit the name of a contact.
+Syntax: `add-birthday *Name* *Birthday*`
+Example: `add-birthday Oleksandr 01.06.1999`
+Description: Adds a birthday to a contact.
+
+- `edit-contact *Name* new-*Name*`:
+Syntax: `edit-contact *Name* new-*Name*`
+Example: `edit-contact Oleksandr new-Yuriy`
+Description: Use this command to edit the name of a contact. The first parameter is the current name of the contact, and the second parameter is the new name you want to set.
 
 - `edit-phone *Name* *Phone* *new_phone*`:
-edit-phone Oleksandr 0987654321 1234567890  
-Edit the phone number for the chosen contact,
-First parameter is name of the contact you want to edit phone number,
-Second parameter is a phone number to change,
-Note: value should be only 10 digits. Any other values would be invalid.
+Syntax: `edit-phone *Name* *Phone* *new_phone*`
+Example: `edit-phone Oleksandr 0987654321 1234567890`
+Description: Use this command to edit the phone number of a chosen contact. The first parameter is the name of the contact whose phone number you want to edit. The second parameter is the current phone number, and the third parameter is the new phone number. Note: The phone number value should be exactly 10 digits. Any other values would be invalid.
 
-- `edit-email *Name* *Email* new-*Email*`: 
-multiple emails allowed: Edit the email address of a contact.
 - `edit-address *Name* *Address* new-*Address*`: 
-multiple addresses allowed: Edit the address of a contact.
-- `edit-birthday *Name* *Birthday*`: 
-Edit the birthday of a contact.
-- `delete-contact *Name*`: 
-Delete a contact by name.
+Syntax: `edit-address *Name* *Address* new-*Address*`
+Example: `edit-address Oleksandr WalkStreet 7 new-OxfordStreet 12`
+Description: Use this command to edit the address of a contact. Multiple addresses are allowed.
+
+
+- `edit-email *Name* *Email* new-*Email*`:
+Purpose: Edit the email address of a contact. Multiple emails are allowed.
+Syntax: `edit-email *Name* *Email* new-*Email*`
+Example: `edit-email Oleksandr example@mail.com new-goit@mail.com`
+
+- `show-birthdays *days_to*`:
+Purpose: Show upcoming birthdays within a specified number of days.
+Syntax: `show-birthdays *days_to*`
+Example: `show-birthdays 7`
+
+- `edit-birthday *Name* *Birthday*`:
+Purpose: Edit the birthday of a contact.
+Syntax: `edit-birthday *Name* *Birthday*`
+Example: `edit-birthday Oleksandr 25.09.1992`
+
+-`birthdays`:
+Syntax: `birthdays`
+Example: `birthdays`
+Description: Use this command to view upcoming birthdays.
+
+- `show-contact *Name*`:
+Purpose: Display information about a contact by name.
+Syntax: `show-contact *Name*`
+Example: `show-contact Oleksandr`
+
+- `show-all-contacts`:
+Purpose: Display information about all contacts by name.
+Syntax: `show-all-contacts`
+Example: s`how-all-contacts`
+
+-`change *Name*`:
+Purpose: Change the contact information of a contact.
+Syntax: `change *Name*`
+Example: `change Oleksandr`
+Details: This command would allow you to change various contact details such as phone number, address, etc., depending on the implementation.
+
+-`all`:
+Syntax: `all`
+Example: `all`
+Description: Show all information or records available in the system.
+
 
 ## Note Commands 
+
+-`note-add`:
+Syntax: `note-add *Note*`
+Example: `note-add Buy groceries before Monday`
+Description: Add a new note.
+
+-`note-change`:
+Syntax: `note-change *Note_ID* *New_Note*`
+Example: `note-change 123 Buy groceries before Tuesday`
+Description: Change an existing note to a new one.
+
+-`note-find`:
+Syntax: `note-find *Keyword*`
+Example: `note-find groceries`
+Description: Find notes containing the specified keyword.
+
+-`note-delete`:
+Syntax: `note-delete *Note_ID*`
+Example: `note-delete 123`
+Description: Delete a note by its ID.
+
+-`note-show-all`:
+Syntax: `note-show-all`
+Example: `note-show-all`
+Description: Show all available notes.
 
 (Include any additional note-related commands here.)
 

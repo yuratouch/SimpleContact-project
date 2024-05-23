@@ -8,29 +8,29 @@ from src.handlers.contacts_handler import (add_contact, add_phone, change_contac
                                            edit_birthday, show_contact)
 
 comands_dict = {
-    "add-contact": add_contact,
-    "add-phone": add_phone,
-    "add-email": add_email,
-    "add-address": add_address,
-    "add-birthday": add_birthday,
+    # "add-contact": add_contact,
+    # "add-phone": add_phone,
+    # "add-email": add_email,
+    # "add-address": add_address,
+    # "add-birthday": add_birthday,
 
-    "edit-contact": edit_contact,
-    "edit-phone": edit_phone,
-    "edit-address": edit_address,
-    "edit-email": edit_email,
-    "edit-birthday": edit_birthday,
+    # "edit-contact": edit_contact,
+    # "edit-phone": edit_phone,
+    # "edit-address": edit_address,
+    # "edit-email": edit_email,
+    # "edit-birthday": edit_birthday,
 
-    "change": change_contact,
-    "phone": show_phone,
-    "show-birthday": show_birthday,
-    "birthdays": show_upcoming_birthdays,
+    # "change": change_contact,
+    # "phone": show_phone,
+    # "show-birthday": show_birthday,
+    # "birthdays": show_upcoming_birthdays,
     "note-add": note_add,
     "note-change": note_change,
     "note-find": note_find,
     "note-delete": note_delete,
     "note-show-all": note_show_all,
     "all": show_all,
-    "show-contact": show_contact,
+    # "show-contact": show_contact,
 }
 
 
