@@ -7,9 +7,9 @@ class EnumColoramaText(Enum):
     ERROR = 3
 
 
-def coloramaText(text: str, colorama: EnumColoramaText) -> str:
+def update_text_color(text: str, colorama: EnumColoramaText) -> str:
     if colorama == EnumColoramaText.SUCCESS:
-        return Fore.GREEN + f"🔴 {text}"
+        return Fore.GREEN + f"🟢 {text}"
     if colorama == EnumColoramaText.WARNING:
         return Fore.YELLOW + f"🟡 {text}"
     if colorama == EnumColoramaText.ERROR:
