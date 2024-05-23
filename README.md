@@ -81,4 +81,4 @@ Delete a contact by name.
 
 (Include any additional note-related commands here.)
 
-Camands:<span style="color:blue">  Pystreet Boys :smile:
+Tour Team is:<span style="color:blue">  Pystreet Boys :smile:
