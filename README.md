@@ -1,29 +1,33 @@
-# SimpleContact Project
-
+## SimpleContact Project
 SimpleContact is a user-friendly Python application designed to efficiently manage your contacts and notes in one place.
 
 ## Installation
+To correctly set up the application, follow these steps:
+Open your terminal and navigate to the application's root directory.
 
-**To correctly set up the application, follow these steps:**
+Create a virtual environment for the application using the following command:
 
- Open your terminal and navigate to the application's root directory.
- Create a virtual environment for the application using the following command:
+<p style="color:blue"> python3 -m venv .venv</p>
+Activate your virtual environment (the specific command depends on your operating system):
 
-<span style="color:blue">python3 -m venv .venv
+On Windows:
+<p style="color:blue">.venv\Scripts\activate</p>
 
- Activate your virtual environment (the specific command depends on your operating system).
- Install the required packages by running:
+On macOS/Linux:
+<p style="color:blue">source .venv/bin/activate</p>
 
-<span style="color:blue">pip install -r requirements.txt
+Install the required packages by running:
+<p style="color:blue">pip install -r requirements.txt</p>
+To launch the application, execute the following command in the 
 
-**To launch the application, execute the following command in the terminal:**
- 
+terminal:
+<p style="color:blue">python app.py</p>
 
+For detailed information about a specific logging level, use the 
+following command:
+<p style="color:blue">python app.py --log-level DEBUG</p>
 
-For detailed information about a specific logging level, use the following command:
-
-
- Enjoy the result.
+Enjoy the result.
 
 ## General Commands
 
@@ -33,37 +37,37 @@ For detailed information about a specific logging level, use the following comma
 
 ## Contact Commands
 
-- `add-contact *name* *phone*`:
+- `add-contact`:
 Syntax: `add-contact *name* *phone*`
 Example: `add-contact Oleksandr 0977654321`
 Description: Adds a new contact with a specified name and phone number.
 
-- `add-phone *name* *phone*`:
+- `add-phone`:
 Syntax: `add-phone *name* *phone*`
 Example: `add-phone Oleksandr 0971234567`
 Description: Adds an additional phone number to an existing contact.
 
-- `add-email *name* *email*`:
+- `add-email`:
 Syntax: `add-email *name* *email*`
 Example: `add-email Oleksandr example@mail.com`
 Description: Adds an email address to a contact.
 
-- `add-address *name* *address*`:
+- `add-address`:
 Syntax: `add-address *name* *address*`
 Example: `add-address Oleksandr WalkStreet 7`
 Description: Adds an address to a contact.
 
-- `add-birthday *name* *birthday*`:
+- `add-birthday`:
 Syntax: `add-birthday *name* *birthday*`
 Example: `add-birthday Oleksandr 01.06.1999`
 Description: Adds a birthday to a contact.
 
-- `edit-contact *name* new-*name*`:
+- `edit-contact`:
 Syntax: `edit-contact *name* new-*name*`
 Example: `edit-contact Oleksandr Yuriy`
 Description: Use this command to edit the name of a contact. The first parameter is the current name of the contact, and the second parameter is the new name you want to set.
 
-- `edit-phone *name* *phone* *new_phone*`:
+- `edit-phone`:
 Syntax: `edit-phone *name* *phone* *new_phone*`
 Example: `edit-phone Oleksandr 0987654321 1234567890`
 Description: Use this command to edit the phone number of a chosen contact. The first parameter is the name of the contact whose phone number you want to edit. The second parameter is the current phone number, and the third parameter is the new phone number. Note: The phone number value should be exactly 10 digits. Any other values would be invalid.
@@ -74,17 +78,17 @@ Example: `edit-address Oleksandr WalkStreet 7 OxfordStreet 12`
 Description: Use this command to edit the address of a contact. Multiple addresses are allowed.
 
 
-- `edit-email *name* *email* new-*email*`:
+- `edit-email`:
 Purpose: Edit the email address of a contact. Multiple emails are allowed.
 Syntax: `edit-email *name* *email* new-*email*`
 Example: `edit-email Oleksandr example@mail.com new-goit@mail.com`
 
-- `show-birthdays *days_to*`:
+- `show-birthdays`:
 Purpose: Show upcoming birthdays within a specified number of days.
 Syntax: `show-birthdays *days_to*`
 Example: `show-birthdays 7`
 
-- `edit-birthday *name* *birthday*`:
+- `edit-birthday`:
 Purpose: Edit the birthday of a contact.
 Syntax: `edit-birthday *name* *birthday*`
 Example: `edit-birthday Oleksandr 25.09.1992`
@@ -94,7 +98,7 @@ Syntax: `birthdays`
 Example: `birthdays`
 Description: Use this command to view upcoming birthdays.
 
-- `show-contact *name*`:
+- `show-contact`:
 Purpose: Display information about a contact by name.
 Syntax: `show-contact *name*`
 Example: `show-contact Oleksandr`
@@ -104,7 +108,7 @@ Purpose: Display information about all contacts by name.
 Syntax: `show-all-contacts`
 Example: `show-all-contacts`
 
-- `change *name*`:
+- `change`:
 Purpose: Change the contact information of a contact.
 Syntax: `change *name*`
 Example: `change Oleksandr`
