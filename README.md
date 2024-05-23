@@ -89,7 +89,7 @@ Purpose: Edit the birthday of a contact.
 Syntax: `edit-birthday *Name* *Birthday*`
 Example: `edit-birthday Oleksandr 25.09.1992`
 
--`birthdays`:
+- `birthdays`:
 Syntax: `birthdays`
 Example: `birthdays`
 Description: Use this command to view upcoming birthdays.
@@ -104,13 +104,13 @@ Purpose: Display information about all contacts by name.
 Syntax: `show-all-contacts`
 Example: s`how-all-contacts`
 
--`change *Name*`:
+- `change *Name*`:
 Purpose: Change the contact information of a contact.
 Syntax: `change *Name*`
 Example: `change Oleksandr`
 Details: This command would allow you to change various contact details such as phone number, address, etc., depending on the implementation.
 
--`all`:
+- `all`:
 Syntax: `all`
 Example: `all`
 Description: Show all information or records available in the system.
@@ -118,27 +118,27 @@ Description: Show all information or records available in the system.
 
 ## Note Commands 
 
--`note-add`:
+- `note-add`:
 Syntax: `note-add *Note*`
 Example: `note-add Buy groceries before Monday`
 Description: Add a new note.
 
--`note-change`:
+- `note-change`:
 Syntax: `note-change *Note_ID* *New_Note*`
 Example: `note-change 123 Buy groceries before Tuesday`
 Description: Change an existing note to a new one.
 
--`note-find`:
+- `note-find`:
 Syntax: `note-find *Keyword*`
 Example: `note-find groceries`
 Description: Find notes containing the specified keyword.
 
--`note-delete`:
+- `note-delete`:
 Syntax: `note-delete *Note_ID*`
 Example: `note-delete 123`
 Description: Delete a note by its ID.
 
--`note-show-all`:
+- `note-show-all`:
 Syntax: `note-show-all`
 Example: `note-show-all`
 Description: Show all available notes.
