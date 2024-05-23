@@ -1,7 +1,6 @@
 from datetime import datetime
 from src.modules.contact_book import ContactBook
 from src.modules.birthday import Birthday
-from src.modules.exceptions import PhoneVerificationError
 from src.handlers.error_handler import input_error
 from src.utils.capitalizer import capitalize_name
 
@@ -24,6 +23,7 @@ def add_contact(args: list, book: ContactBook) -> str:
         if not result_phone:
             message += " Phone didn't"
 
+    book.save()
     return message
 
 
@@ -37,6 +37,7 @@ def add_phone(args: list, book: ContactBook) -> str:
         return "Contact not found."
 
     record.add_phone(phone)
+    book.save()
     return "Contact updated."
 
 
@@ -50,6 +51,7 @@ def add_email(args: list, book: ContactBook) -> str:
         return "Contact not found."
 
     record.add_email(email)
+    book.save()
     return "Contact updated."
 
 
@@ -64,6 +66,7 @@ def add_address(args: list, book: ContactBook) -> str:
         return "Contact not found."
 
     record.add_address(address)
+    book.save()
     return "Contact updated."
 
 
@@ -76,7 +79,7 @@ def edit_contact_name(args: list, book: ContactBook) -> str:
     if contact:
         new_name = new_name.lower().capitalize()
         book.rename(old_name, new_name)
-
+        book.save()
         return f"Name changed successfully."
 
     return "Contact not found."
@@ -90,7 +93,9 @@ def edit_phone(args: list, book: ContactBook) -> str:
 
     if contact:
         contact.edit_phone(old_phone, new_phone)
+        book.save()
         return f"Phone changed successfully."
+
     return "Contact not found."
 
 
@@ -102,7 +107,9 @@ def edit_address(args: list, book: ContactBook) -> str:
 
     if contact:
         contact.edit_address(new_address)
+        book.save()
         return f"Name changed successfully."
+
     return "Contact not found."
 
 
@@ -113,8 +120,9 @@ def contact_delete(args: list, book: ContactBook) -> str:
     contact = book.find(name)
 
     if contact:
-        book.delete(name)
+        book.delete(name).save()
         return f"Contact delete."
+
     return "Contact not found."
 
 
@@ -126,7 +134,9 @@ def edit_email(args: list, book: ContactBook) -> str:
 
     if contact:
         contact.edit_email(new_email)
+        book.save()
         return f"Email changed successfully."
+
     return "Contact not found."
 
 
@@ -135,6 +145,7 @@ def edit_email(args: list, book: ContactBook) -> str:
 def show_phone(args: list, book) -> str:
     name = args[0]
     record = book.find(name)
+
     if record:
         return ", ".join(p.value for p in record.phones)
 
@@ -164,6 +175,7 @@ def add_birthday(args: list, book) -> str:
     if record:
         try:
             record.birthday = Birthday(date)
+            book.save()
             return f"Birthday added for {name}."
         except ValueError:
             return "Invalid date format. Please enter date in format DD.MM.YYYY"
@@ -182,6 +194,7 @@ def edit_birthday(args: list, book) -> str:
     if record:
         try:
             record.birthday = Birthday(date)
+            book.save()
             return f"Birthday changed to {record.birthday}."
         except ValueError:
             return "Invalid date format. Please enter date in format DD.MM.YYYY"
