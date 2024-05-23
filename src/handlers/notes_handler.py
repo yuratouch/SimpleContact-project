@@ -22,6 +22,7 @@ def note_add(_: list, book: NoteBook) -> str:
     content = input("Enter a content: ")
     note = Note(title, content)
     book.add(note)
+    book.save()
     return "Note added."
 
 
@@ -81,6 +82,7 @@ def note_change(_: list, book: NoteBook) -> str:
         content = note.content
 
     note.content = content
+    book.save()
     return "Note updated."
 
 
@@ -95,7 +97,7 @@ def note_delete(_: list, book: NoteBook) -> str:
 
     if note is None:
         return "Note not found."
-    book.delete(note)
+    book.delete(note).save()
     return "Note deleted."
 
 

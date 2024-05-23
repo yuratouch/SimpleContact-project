@@ -9,12 +9,12 @@ def save_contacts_book(book: ContactBook, filename="addressbook.pkl") -> None:
         pickle.dump(book, file)
 
 
-def get_contacts(filename="addressbook.pkl") -> ContactBook:
+def get_contacts(save_function, filename="addressbook.pkl") -> ContactBook:
     try:
         with open(filename, "rb") as file:
             return pickle.load(file)
     except FileNotFoundError:
-        return ContactBook()
+        return ContactBook(save_function)
 
 
 # Notes
@@ -23,9 +23,9 @@ def save_note_book(book: NoteBook, filename="notebook.pkl") -> None:
         pickle.dump(book, file)
 
 
-def get_notes(filename="notebook.pkl") -> NoteBook:
+def get_notes(save_function, filename="notebook.pkl") -> NoteBook:
     try:
         with open(filename, "rb") as file:
             return pickle.load(file)
     except FileNotFoundError:
-        return NoteBook()
+        return NoteBook(save_function)

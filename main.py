@@ -36,13 +36,13 @@ comands_dict = {
     "note-show-all": note_show_all,
 
     "help": lambda args, book: "help",
-    "exit": lambda args, book: "exit",
+    "exit": lambda args: "Good bye!",
 }
 
 
 def main():
-    contact_book = get_contacts()
-    note_book = get_notes()
+    contact_book = get_contacts(save_contacts_book)
+    note_book = get_notes(save_note_book)
 
     print("Welcome to the assistant bot!")
     completer = CommandCompleter(comands_dict)
@@ -53,11 +53,9 @@ def main():
             command, *args = parse_input(user_input)
 
             if command == "exit":
-                save_contacts_book(contact_book)
-                save_note_book(note_book)
-                print("Good bye!")
+                print(comands_dict[command](args))
                 break
-            elif command == "help":
+            if command == "help":
                 print("Help")
             elif command.startswith("note-"):
                 print(comands_dict[command](args, note_book))
@@ -65,6 +63,10 @@ def main():
                 print(comands_dict[command](args, contact_book))
             else:
                 print(f"Invalid command {command}.")
+
+        except KeyboardInterrupt:
+            print(comands_dict['exit'](None))
+            break
         except Exception as e:
             print(f"Invalid command {e}.")
 
