@@ -20,6 +20,9 @@ class NoteBook(Book):
                 self.data.pop(note.title)
                 break
 
+    def find_by_tag(self, tags: list[str]) -> list[Note]:
+        return [note for note in self.data.values() if note.has_any_tags(tags)]
+
     def __str__(self):
         wrapped_table = []
         for note in self.data.values():
