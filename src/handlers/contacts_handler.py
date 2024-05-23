@@ -69,7 +69,7 @@ def add_address(args: list, book: ContactBook) -> str:
 
 @input_error
 @capitalize_name
-def edit_contact(args: list, book: ContactBook) -> str:
+def edit_contact_name(args: list, book: ContactBook) -> str:
     old_name, new_name = args
     contact = book.find(old_name)
 
@@ -108,6 +108,18 @@ def edit_address(args: list, book: ContactBook) -> str:
 
 @input_error
 @capitalize_name
+def contact_delete(args: list, book: ContactBook) -> str:
+    name, *_ = args
+    contact = book.find(name)
+
+    if contact:
+        book.delete(name)
+        return f"Contact delete."
+    return "Contact not found."
+
+
+@input_error
+@capitalize_name
 def edit_email(args: list, book: ContactBook) -> str:
     name, new_email = args
     contact = book.find(name)
@@ -115,18 +127,6 @@ def edit_email(args: list, book: ContactBook) -> str:
     if contact:
         contact.edit_email(new_email)
         return f"Email changed successfully."
-    return "Contact not found."
-
-
-@capitalize_name
-@input_error
-def change_contact(args: list, book: ContactBook) -> str:
-    name, old, new = args
-    contact = book.find(name)
-
-    if contact:
-        contact.edit_phone(old, new)
-        return f"Number changed successfully."
     return "Contact not found."
 
 
@@ -169,6 +169,7 @@ def add_birthday(args: list, book) -> str:
             return "Invalid date format. Please enter date in format DD.MM.YYYY"
     else:
         return "Contact not found."
+
 
 @input_error
 @capitalize_name

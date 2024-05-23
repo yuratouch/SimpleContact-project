@@ -12,10 +12,6 @@ class ContactBook(Book):
     def add(self, contact: Contact):
         self.data[contact.name] = contact
 
-    # TODO: Add edit method for ContactBook / SC-9. Feature-1. Save contacts.
-    def edit(self, contact):
-        pass
-
     def find(self, name: str) -> Contact:
         for contact_name, contact in self.data.items():
             if name == contact_name.value:
@@ -24,7 +20,7 @@ class ContactBook(Book):
     def rename(self, old_name: str, new_name: str):
         old_contact = None
         for contact_name, _ in self.data.items():
-            if old_name == contact_name.name.value:
+            if old_name == contact_name.value:
                 old_contact = self.data.pop(contact_name)
                 break
         if old_contact:
@@ -73,4 +69,3 @@ class ContactBook(Book):
             for record in self.data.values()
         )
         return res
-
