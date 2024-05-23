@@ -1,4 +1,4 @@
-from src.handlers.notes_handler import note_show_all, note_add, note_change, note_delete, note_find
+from src.handlers.notes_handler import note_show_all, note_add, note_change, note_delete, note_find_by_title, note_find_by_tag
 from src.utils.command_completer import CommandCompleter
 from src.utils.input_parser import parse_input
 from src.handlers.file_handler import get_contacts, get_notes, save_contacts_book, save_note_book
@@ -30,7 +30,8 @@ comands_dict = {
 
     "note-add": note_add,
     "note-change": note_change,
-    "note-find": note_find,
+    "note-find-by-title": note_find_by_title,
+    "note-find-by-tag": note_find_by_tag,
     "note-delete": note_delete,
     "note-show-all": note_show_all,
 
