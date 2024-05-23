@@ -18,11 +18,11 @@ SimpleContact is a user-friendly Python application designed to efficiently mana
 
 **To launch the application, execute the following command in the terminal:**
  
-<!-- python task3.py /path/to/target/log_file -->
+
 
 For detailed information about a specific logging level, use the following command:
 
-<!-- python task3.py /path/to/target/log_file *logging_level* -->
+
  Enjoy the result.
 
 ## General Commands
@@ -68,7 +68,7 @@ Syntax: `edit-phone *name* *phone* *new_phone*`
 Example: `edit-phone Oleksandr 0987654321 1234567890`
 Description: Use this command to edit the phone number of a chosen contact. The first parameter is the name of the contact whose phone number you want to edit. The second parameter is the current phone number, and the third parameter is the new phone number. Note: The phone number value should be exactly 10 digits. Any other values would be invalid.
 
-- `edit-address *name* *address* new-*address*`: 
+- `edit-address`: 
 Syntax: `edit-address *name* *address* new-*address*`
 Example: `edit-address Oleksandr WalkStreet 7 OxfordStreet 12`
 Description: Use this command to edit the address of a contact. Multiple addresses are allowed.
