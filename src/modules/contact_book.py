@@ -12,19 +12,15 @@ class ContactBook(Book):
     def add(self, contact: Contact):
         self.data[contact.name] = contact
 
-    # TODO: Add edit method for ContactBook / SC-9. Feature-1. Save contacts.
-    def edit(self, contact):
-        pass
-
     def find(self, name: str) -> Contact:
         for contact_name, contact in self.data.items():
-            if name == contact_name.name.value:
+            if name == contact_name.value:
                 return contact
 
     def rename(self, old_name: str, new_name: str):
         old_contact = None
         for contact_name, _ in self.data.items():
-            if old_name == contact_name.name.value:
+            if old_name == contact_name.value:
                 old_contact = self.data.pop(contact_name)
                 break
         if old_contact:
@@ -33,7 +29,7 @@ class ContactBook(Book):
 
     def delete(self, name):
         for contact_name, _ in self.data.items():
-            if name == contact_name.name.value:
+            if name == contact_name.value:
                 self.data.pop(contact_name)
                 break
 
@@ -59,13 +55,13 @@ class ContactBook(Book):
                 congratulation_date = birthday_this_year
 
             congratulations.append(
-                {"name": contact_name.name.value, "congratulation_date": congratulation_date.strftime("%d.%m.%Y")})
+                {"name": contact_name.value, "congratulation_date": congratulation_date.strftime("%d.%m.%Y")})
 
         return congratulations
 
     def __str__(self):
         res = "\n".join(
-            f"{record.name.value}"
+            f"{record.name}"
             f"{f'({record.birthday.value})' if record.birthday and record.birthday.value else ''}: "
             f"{', '.join(phone.value for phone in record.phones) if record.phones else 'The contact has no phone'}"
             f"{f' | Email: {record.email.value}' if record.email and record.email.value else ''}"
@@ -73,4 +69,3 @@ class ContactBook(Book):
             for record in self.data.values()
         )
         return res
-
