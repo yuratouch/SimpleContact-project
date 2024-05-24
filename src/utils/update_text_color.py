@@ -1,5 +1,6 @@
 from enum import Enum
-from  colorama import Fore, Back , Style
+from colorama import Fore
+
 
 class EnumColoramaText(Enum):
     SUCCESS = 1

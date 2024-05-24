@@ -1,10 +1,10 @@
-from src.handlers.notes_handler import note_show_all, note_add, note_change, note_delete, note_find_by_title, note_find_by_tag
+from src.handlers.notes_handler import (note_show_all, note_add, note_change, note_delete,
+                                        note_find_by_title, note_find_by_tag)
 from src.handlers.contacts_handler import (add_contact, add_phone, show_phone,
                                            show_all, add_birthday, show_birthday,
                                            show_upcoming_birthdays, add_email, add_address,
                                            edit_contact_name, edit_phone, edit_address, edit_email,
                                            edit_birthday, show_contact, contact_delete)
-
 
 comands_dict = {
     "contact-add": {

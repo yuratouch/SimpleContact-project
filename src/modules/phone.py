@@ -21,12 +21,12 @@ class Phone(Field):
         if len(phone) != 10:
             error_text = f"The phone number must consist of 10 digits. '{phone}' has {len(phone)}"
             raise PhoneVerificationError(update_text_color(error_text, EnumColoramaText.ERROR))
-            
 
-        ukrainian_prefixes = ["067", "068", "096", "097", "098", "050", "066", "095", "099", "039", "063", "073", "093",
-                              "094", "091", "092"]
+        ukrainian_prefixes = ["067", "068", "096", "097", "098",
+                              "050", "066", "095", "099", "039",
+                              "063", "073", "093", "094", "091", "092"]
         if not any(phone.startswith(prefix) for prefix in ukrainian_prefixes):
-            error_text = f'Please enter valid Ukrainian phone number. Run "help" to see allowed numbers.' 
+            error_text = f'Please enter valid Ukrainian phone number. Run "help" to see allowed numbers.'
             raise PhoneVerificationError(update_text_color(error_text, EnumColoramaText.ERROR))
 
         return True
