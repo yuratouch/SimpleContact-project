@@ -1,6 +1,6 @@
 import re
-from src.modules.exceptions import EmailVerificationError
 from src.modules.field import Field
+from src.modules.exceptions import EmailVerificationError
 
 
 # TODO: Improvement. Refactor. Add error handler decorator
