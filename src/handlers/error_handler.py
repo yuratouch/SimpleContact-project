@@ -1,5 +1,6 @@
 from functools import wraps
-# TODO: Improvement. Improve error decorator. 
+from src.utils.update_text_color import update_text_color, EnumColoramaText
+
 
 def input_error(func):
     @wraps(func)
@@ -7,10 +8,10 @@ def input_error(func):
         try:
             return func(*args, **kwargs)
         except ValueError:
-            return "Please enter expected values (name, phone number)."
+            return update_text_color("Please enter expected values (name, phone number).", EnumColoramaText.ERROR)
         except IndexError:
-            return "Please enter name to check the related phone number."
-        except Exception as e:
-            return str(e)
+            return update_text_color("Please enter name to check the related phone number.", EnumColoramaText.ERROR)
+        except Exception as error:
+            return str(update_text_color(error, EnumColoramaText.ERROR))
 
     return inner
