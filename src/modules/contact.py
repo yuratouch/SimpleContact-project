@@ -1,4 +1,4 @@
-from src.modules.exceptions import PhoneVerificationError, EmailVerificationError
+from src.modules.exceptions import BirthdayVerificationError, PhoneVerificationError, EmailVerificationError
 from src.modules.name import Name
 from src.modules.phone import Phone
 from src.modules.birthday import Birthday
@@ -45,16 +45,18 @@ class Contact:
         try:
             phone_old = Phone(old)
             phone_new = Phone(new)
+            for index in range(len(self.phones)):
+                if self.phones[index].value == phone_old.value:
+                    self.phones[index] = phone_new
         except PhoneVerificationError as error_message:
             print(error_message)
             new_phone = input(
                 "--- Type phone one more time or 'exit' to get back: ")  # TODO Use colorama here, some yellow color
 
             if new_phone != "exit":
-                for index in range(len(self.phones)):
-                    if self.phones[index].value == phone_old.value:
-                        self.phones[index] = phone_new
+                return self.edit_phone(old, new_phone)
             
+            return False
 
     def find_phone(self, phone_input: str):
         for phone in self.phones:
@@ -64,8 +66,16 @@ class Contact:
     def add_birthday(self, birthday: str):
         try:
             self.birthday = Birthday(birthday)
-        except ValueError as e:
-            print(e)
+            return True
+        except BirthdayVerificationError as error_message:
+            print(error_message)
+            new_birthday = input(
+                "--- Type Birthday one more time or 'exit' to get back: ")  # TODO Use colorama here, some yellow color
+            
+            if new_birthday != "exit":
+                return self.add_birthday(new_birthday)
+            
+            return False
 
     def add_email(self, email: str):
         try:
