@@ -22,7 +22,7 @@ class Contact:
         except PhoneVerificationError as error_message:
             print(error_message)
             new_phone = input(
-                "Type phone one more time or 'exit' to get back: ")  # TODO Use colorama here, some yellow color
+                "--- Type phone one more time or 'exit' to get back: ")  # TODO Use colorama here, some yellow color
 
             if new_phone != "exit":
                 return self.add_phone(new_phone)
@@ -37,16 +37,24 @@ class Contact:
 
     def edit_phone(self, old: str, new: str):
         if self.find_phone(old) is None:
-            # TODO: change exception for this case (old phone not found)
             raise Exception(f"Phone not found: {old}")
-
+        
         if self.find_phone(new):
-            # TODO: change exception for this case (new phone already exist)
             raise Exception(f"Phone already exist: {new}")
 
-        for index in range(len(self.phones)):
-            if self.phones[index].value == old:
-                self.phones[index] = Phone(new)
+        try:
+            phone_old = Phone(old)
+            phone_new = Phone(new)
+        except PhoneVerificationError as error_message:
+            print(error_message)
+            new_phone = input(
+                "--- Type phone one more time or 'exit' to get back: ")  # TODO Use colorama here, some yellow color
+
+            if new_phone != "exit":
+                for index in range(len(self.phones)):
+                    if self.phones[index].value == phone_old.value:
+                        self.phones[index] = phone_new
+            
 
     def find_phone(self, phone_input: str):
         for phone in self.phones:
@@ -66,7 +74,7 @@ class Contact:
         except EmailVerificationError as error_message:
             print(error_message)
             new_email = input(
-                "Type Email one more time or 'exit' to get back: ")  # TODO Use colorama here, some yellow color
+                "--- Type Email one more time or 'exit' to get back: ")  # TODO Use colorama here, some yellow color
 
             if new_email != "exit":
                 return self.add_email(new_email)
@@ -77,7 +85,7 @@ class Contact:
         if self.email and new_email == self.email.value:
             # TODO: change exception for this case (This email is already saved to this contact)
             raise Exception("This email is already saved to this contact")
-        self.email = Email(new_email)
+        self.add_email(new_email)
 
     def add_address(self, address: str):
         self.address = Address(address)
