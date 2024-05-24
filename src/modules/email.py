@@ -12,7 +12,7 @@ class Email(Field):
             super().__init__(email)
         else:
             error_message = f"Invalid email number: {email}"
-            raise EmailVerificationError(update_text_color(error_message, EnumColoramaText(3)))
+            raise EmailVerificationError(update_text_color(error_message, EnumColoramaText.ERROR))
 
     @staticmethod
     def is_valid(email: str) -> bool:
@@ -20,6 +20,6 @@ class Email(Field):
 
         if not re.fullmatch(pattern, email):
             error_message = f"'{email}' is not an email. The email should be like this 'exemple@ukrposhta.ua'."
-            raise EmailVerificationError(update_text_color(error_message, EnumColoramaText(3)))
+            raise EmailVerificationError(update_text_color(error_message, EnumColoramaText.ERROR))
 
         return True

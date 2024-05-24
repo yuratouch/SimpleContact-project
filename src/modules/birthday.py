@@ -15,7 +15,7 @@ class Birthday(Field):
             self.birthday = birthday
         else:
             error_text = "Invalid date format. Use DD.MM.YYYY"
-            raise BirthdayVerificationError(update_text_color(error_text, EnumColoramaText(3)))
+            raise BirthdayVerificationError(update_text_color(error_text, EnumColoramaText.ERROR))
 
     @staticmethod
     def is_valid(value:str):
@@ -23,7 +23,7 @@ class Birthday(Field):
        
         if not re.fullmatch(pattern, value):
             error_text = "Invalid date format. Use DD.MM.YYYY"
-            raise BirthdayVerificationError(update_text_color(error_text, EnumColoramaText(3)))
+            raise BirthdayVerificationError(update_text_color(error_text, EnumColoramaText.ERROR))
         
         return True
 

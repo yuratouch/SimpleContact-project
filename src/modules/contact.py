@@ -21,9 +21,9 @@ class Contact:
             self.phones.append(phone_number)
             return True
         except PhoneVerificationError as error_message:
-            print(update_text_color(error_message, EnumColoramaText(3)))
+            print(update_text_color(error_message, EnumColoramaText.ERROR))
             input_message = "--- Type phone one more time or 'exit' to get back: "
-            new_phone = input(update_text_color(input_message, EnumColoramaText(2)))
+            new_phone = input(update_text_color(input_message, EnumColoramaText.WARNING))
 
             if new_phone != "exit":
                 return self.add_phone(new_phone)
@@ -39,11 +39,11 @@ class Contact:
     def edit_phone(self, old: str, new: str):
         if self.find_phone(old) is None:
             exception_message = f"Phone not found: {old}"
-            raise Exception(update_text_color(exception_message, EnumColoramaText(2)))
+            raise Exception(update_text_color(exception_message, EnumColoramaText.WARNING))
 
         if self.find_phone(new):
             exception_message = f"Phone already exist: {new}"
-            raise Exception(update_text_color(exception_message, EnumColoramaText(2)))
+            raise Exception(update_text_color(exception_message, EnumColoramaText.WARNING))
 
         try:
             phone_old = Phone(old)
@@ -52,10 +52,10 @@ class Contact:
                 if self.phones[index].value == phone_old.value:
                     self.phones[index] = phone_new
         except PhoneVerificationError as error_message:
-            print(update_text_color(error_message, EnumColoramaText(3)))
+            print(update_text_color(error_message, EnumColoramaText.ERROR))
 
             input_message = "--- Type phone one more time or 'exit' to get back: "
-            new_phone = input(update_text_color(input_message, EnumColoramaText(2)))
+            new_phone = input(update_text_color(input_message, EnumColoramaText.WARNING))
 
             if new_phone != "exit":
                 return self.edit_phone(old, new_phone)
@@ -71,10 +71,10 @@ class Contact:
         try:
             self.birthday = Birthday(birthday)
         except BirthdayVerificationError as error_message:
-            print(update_text_color(error_message, EnumColoramaText(3)))
+            print(update_text_color(error_message, EnumColoramaText.ERROR))
 
             input_message = "--- Type Birthday one more time or 'exit' to get back: "
-            new_birthday = input(update_text_color(input_message, EnumColoramaText(2)))
+            new_birthday = input(update_text_color(input_message, EnumColoramaText.WARNING))
             
             if new_birthday != "exit":
                 return self.add_birthday(new_birthday)
@@ -87,10 +87,10 @@ class Contact:
             self.email = Email(email)
             return True
         except EmailVerificationError as error_message:
-            print(update_text_color(error_message, EnumColoramaText(2)))
+            print(update_text_color(error_message, EnumColoramaText.WARNING))
 
             input_message = "Type Email one more time or 'exit' to get back: "
-            new_email = input(update_text_color(input_message, EnumColoramaText(2)))
+            new_email = input(update_text_color(input_message, EnumColoramaText.WARNING))
 
             if new_email != "exit":
                 return self.add_email(new_email)
@@ -100,7 +100,7 @@ class Contact:
     def edit_email(self, new_email: str):
         if self.email and new_email == self.email.value:
             exception_message = "This email is already saved to this contact"
-            raise Exception(update_text_color(exception_message, EnumColoramaText(2)))
+            raise Exception(update_text_color(exception_message, EnumColoramaText.WARNING))
         
         self.email = Email(new_email)
 
@@ -110,7 +110,7 @@ class Contact:
     def edit_address(self, new_address: str):
         if self.address and new_address == self.address.value:
             exception_message = "This address is already saved to this contact"
-            raise Exception(update_text_color(exception_message, EnumColoramaText(2)))
+            raise Exception(update_text_color(exception_message, EnumColoramaText.WARNING))
 
         self.address = Address(new_address)
 
