@@ -1,31 +1,41 @@
 ## SimpleContact Project
 SimpleContact is a user-friendly Python application designed to efficiently manage your contacts and notes in one place.
 
-## Installation
-1. To correctly set up the application, follow these steps:
-Open your terminal and navigate to the application's root directory.
-
-2.Create a virtual environment for the application using the following command:
-
-- python3 -m venv .venv</p>
-3. Activate your virtual environment (the specific command depends on your operating system):
-
-On Windows:
-- .venv\Scripts\activate</p>
-
-On macOS/Linux:
-- source .venv/bin/activate</p>
-
-Install the required packages by running:
-- pip install -r requirements.txt</p>
-To launch the application, execute the following command in the 
-
-terminal:
-- python app.py</p>
-
-4. For detailed information about a specific logging level, use the 
-following command:
-- python app.py --log-level DEBUG</p>
+# Installation Instructions
+To ensure the application works correctly, please follow these steps:
+1. **Navigate to the application's root directory:**
+   Open your terminal and use the `cd` command to move to the application's root directory. For example:
+   ```sh
+   cd /path/to/application/root
+   ```
+2. **Create a virtual environment:**
+   Run the following command to create a virtual environment:
+   ```sh
+   python3 -m venv .venv
+   ```
+3. **Activate the virtual environment:**
+   The command to activate the virtual environment depends on your operating system:
+   - **For Windows:**
+     ```sh
+     .\.venv\Scripts\activate
+     ```
+   - **For macOS and Linux:**
+     ```sh
+     source .venv/bin/activate
+     ```
+4. **Install the required packages:**
+   Use the following command to install the necessary packages from the `requirements.txt` file:
+   ```sh
+   pip install -r requirements.txt
+   ```
+5. **Run the application:**
+   Execute the application with the following command, replacing `/path/to/target/directory` with the actual path:
+   ```sh
+   python path/to/target/directory main.py 
+   ```
+6. **Enjoy the results!**
+---
+These instructions should be clear and easy to follow for users of different operating systems. Let me know if there are any other details you need to include!
 
 #### Enjoy the result.
 
