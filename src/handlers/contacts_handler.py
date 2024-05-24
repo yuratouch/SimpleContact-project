@@ -11,15 +11,15 @@ from src.utils.capitalizer import capitalize_name
 @capitalize_name
 def add_contact(args: list, book: ContactBook) -> str:
     name, phone, *_ = args
-    record = book.find(name)
+    contact = book.find(name)
     message = "Contact updated."
 
-    if record is None:
-        record = book.create(name)
+    if contact is None:
+        contact = book.create(name)
         message = "Contact added."
 
     if phone:
-        result_phone = record.add_phone(phone)
+        result_phone = contact.add_phone(phone)
         if not result_phone:
             message += " Phone didn't"
 
@@ -31,12 +31,12 @@ def add_contact(args: list, book: ContactBook) -> str:
 @capitalize_name
 def add_phone(args: list, book: ContactBook) -> str:
     name, phone, *_ = args
-    record = book.find(name)
+    contact = book.find(name)
 
-    if record is None:
+    if contact is None:
         return "Contact not found."
 
-    record.add_phone(phone)
+    contact.add_phone(phone)
     book.save()
     return "Contact updated."
 
@@ -45,12 +45,12 @@ def add_phone(args: list, book: ContactBook) -> str:
 @capitalize_name
 def add_email(args: list, book: ContactBook) -> str:
     name, email, *_ = args
-    record = book.find(name)
+    contact = book.find(name)
 
-    if record is None:
+    if contact is None:
         return "Contact not found."
 
-    record.add_email(email)
+    contact.add_email(email)
     book.save()
     return "Contact updated."
 
@@ -60,12 +60,12 @@ def add_email(args: list, book: ContactBook) -> str:
 def add_address(args: list, book: ContactBook) -> str:
     name, *address_list = args
     address = " ".join(address_list)
-    record = book.find(name)
+    contact = book.find(name)
 
-    if record is None:
+    if contact is None:
         return "Contact not found."
 
-    record.add_address(address)
+    contact.add_address(address)
     book.save()
     return "Contact updated."
 
@@ -144,10 +144,10 @@ def edit_email(args: list, book: ContactBook) -> str:
 @capitalize_name
 def show_phone(args: list, book) -> str:
     name = args[0]
-    record = book.find(name)
+    contact = book.find(name)
 
-    if record:
-        return ", ".join(p.value for p in record.phones)
+    if contact:
+        return ", ".join(p.value for p in contact.phones)
 
     return "Contact not found."
 
@@ -170,11 +170,11 @@ def show_all(_: list, book: ContactBook) -> str:
 @capitalize_name
 def add_birthday(args: list, book) -> str:
     name, date = args
-    record = book.find(name)
+    contact = book.find(name)
 
-    if record:
+    if contact:
         try:
-            record.birthday = Birthday(date)
+            contact.birthday = Birthday(date)
             book.save()
             return f"Birthday added for {name}."
         except ValueError:
@@ -189,13 +189,13 @@ def edit_birthday(args: list, book) -> str:
     if len(args) < 2:
         return "Missing one or more arguments"
     name, date = args
-    record = book.find(name)
+    contact = book.find(name)
 
-    if record:
+    if contact:
         try:
-            record.birthday = Birthday(date)
+            contact.birthday = Birthday(date)
             book.save()
-            return f"Birthday changed to {record.birthday}."
+            return f"Birthday changed to {contact.birthday}."
         except ValueError:
             return "Invalid date format. Please enter date in format DD.MM.YYYY"
     else:
@@ -205,11 +205,11 @@ def edit_birthday(args: list, book) -> str:
 @capitalize_name
 def show_birthday(args: list, book) -> str:
     name = args[0]
-    record = book.find(name)
+    contact = book.find(name)
 
-    if record:
+    if contact:
         try:
-            return f"{name}'s birthday is {datetime.strftime(record.birthday.birthday, "%d.%m.%Y")}"
+            return f"{name}'s birthday is {datetime.strftime(contact.birthday.birthday, "%d.%m.%Y")}"
         except AttributeError:
             return f"No record about {name}'s birthday."
 
