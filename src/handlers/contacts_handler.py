@@ -168,42 +168,36 @@ def show_all(_: list, book: ContactBook) -> ContactBook:
 
 @input_error
 @capitalize_name
-def add_birthday(args: list, book) -> str:
+def add_birthday(args: list, book: ContactBook) -> str:
     name, date = args
     record = book.find(name)
 
     if record:
-        try:
-            record.birthday = Birthday(date)
-            book.save()
-            return f"Birthday added for {name}."
-        except ValueError:
-            return "Invalid date format. Please enter date in format DD.MM.YYYY"
+        record.add_birthday(date)
+        book.save()
+        return f"Birthday added for {name}."
     else:
         return "Contact not found."
 
 
 @input_error
 @capitalize_name
-def edit_birthday(args: list, book) -> str:
+def edit_birthday(args: list, book: ContactBook) -> str:
     if len(args) < 2:
         return "Missing one or more arguments"
     name, date = args
     record = book.find(name)
 
     if record:
-        try:
-            record.birthday = Birthday(date)
-            book.save()
-            return f"Birthday changed to {record.birthday}."
-        except ValueError:
-            return "Invalid date format. Please enter date in format DD.MM.YYYY"
+        record.add_birthday(date)
+        book.save()
+        return f"Birthday changed to {datetime.strftime(record.birthday.birthday, "%d.%m.%Y")}"
     else:
         return "Contact not found."
 
 
 @capitalize_name
-def show_birthday(args: list, book) -> str:
+def show_birthday(args: list, book: ContactBook) -> str:
     name = args[0]
     record = book.find(name)
 
