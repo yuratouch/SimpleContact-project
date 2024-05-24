@@ -12,7 +12,7 @@ class Contact:
         self.phones: list[Phone] = []
         self.birthday = None
         self.address = None
-        self.email: Email|None = None
+        self.email: Email | None = None
 
     def add_phone(self, phone) -> bool:
         try:

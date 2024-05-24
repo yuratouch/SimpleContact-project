@@ -162,7 +162,7 @@ def show_contact(args: list, book):
     return "Contact not found."
 
 
-def show_all(_: list, book: ContactBook) -> str:
+def show_all(_: list, book: ContactBook) -> ContactBook:
     return book
 
 

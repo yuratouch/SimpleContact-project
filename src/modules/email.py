@@ -17,6 +17,7 @@ class Email(Field):
         pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
 
         if not re.fullmatch(pattern, email):
-            raise EmailVerificationError(f"'{email}' is not a email. The email should be like this 'exemple@ukrposhta.ua'.")
+            raise EmailVerificationError(f"'{email}' is not a email. The email should be"
+                                         f" like this 'exemple@ukrposhta.ua'.")
 
         return True
