@@ -1,11 +1,8 @@
 from datetime import datetime
 from src.modules.contact_book import ContactBook
-from src.modules.birthday import Birthday
 from src.handlers.error_handler import input_error
 from src.utils.capitalizer import capitalize_name
 
-
-# TODO: Improvement. Review error decorator for all functions
 
 @input_error
 @capitalize_name

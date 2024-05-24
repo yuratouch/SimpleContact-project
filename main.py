@@ -12,6 +12,12 @@ from src.handlers.contacts_handler import (add_contact, add_phone, show_phone,
 from prompt_toolkit import prompt
 
 comands_dict = {
+    "note-add": note_add,
+    "note-change": note_change,
+    "note-find-by-title": note_find_by_title,
+    "note-find-by-tag": note_find_by_tag,
+    "note-delete": note_delete,
+    "note-show-all": note_show_all,
     "contact-add": add_contact,
     "contact-add-phone": add_phone,
     "contact-add-birthday": add_birthday,
@@ -28,14 +34,6 @@ comands_dict = {
     "contact-show-birthday": show_birthday,
     "contact-birthdays": show_upcoming_birthdays,
     "contact-show-all": show_all,
-
-    "note-add": note_add,
-    "note-change": note_change,
-    "note-find-by-title": note_find_by_title,
-    "note-find-by-tag": note_find_by_tag,
-    "note-delete": note_delete,
-    "note-show-all": note_show_all,
-
     "help": lambda d: '\n'.join([f"{key:<25} - {value}" for key, value in d.items()]),
     "exit": lambda args: "Good bye!",
 }
