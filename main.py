@@ -35,7 +35,7 @@ comands_dict = {
     "note-delete": note_delete,
     "note-show-all": note_show_all,
 
-    "help": lambda args, book: "help",
+    "help": lambda d: '\n'.join([f"{key:<25} - {value}" for key, value in d.items()]),
     "exit": lambda args: "Good bye!",
 }
 
@@ -85,7 +85,7 @@ def main():
                 print(comands_dict[command](args))
                 break
             if command == "help":
-                print("Help")
+                print(comands_dict[command](comands_help_dict))
             elif command.startswith("note-"):
                 print(comands_dict[command](args, note_book))
             elif command.startswith("contact-"):
