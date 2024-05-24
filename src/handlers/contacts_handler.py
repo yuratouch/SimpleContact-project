@@ -1,55 +1,61 @@
 from datetime import datetime
 from src.modules.contact_book import ContactBook
+from src.modules.birthday import Birthday
 from src.handlers.error_handler import input_error
 from src.utils.capitalizer import capitalize_name
+from src.utils.update_text_color import update_text_color, EnumColoramaText
 
+
+CONTACT_NOT_FOUND_MESSAGE = "Contact not found."
 
 @input_error
 @capitalize_name
 def add_contact(args: list, book: ContactBook) -> str:
     name, phone, *_ = args
-    record = book.find(name)
+    contact = book.find(name)
     message = "Contact updated."
 
-    if record is None:
-        record = book.create(name)
+    if contact is None:
+        contact = book.create(name)
         message = "Contact added."
 
     if phone:
-        result_phone = record.add_phone(phone)
+        result_phone = contact.add_phone(phone)
         if not result_phone:
             message += " Phone didn't"
 
     book.save()
-    return message
+    return  update_text_color(message, EnumColoramaText.SUCCESS)
 
 
 @input_error
 @capitalize_name
 def add_phone(args: list, book: ContactBook) -> str:
     name, phone, *_ = args
-    record = book.find(name)
+    contact = book.find(name)
+    message = "Contact updated."
 
-    if record is None:
-        return "Contact not found."
+    if contact is None:
+        return update_text_color(CONTACT_NOT_FOUND_MESSAGE, EnumColoramaText.WARNING)
 
-    record.add_phone(phone)
+    contact.add_phone(phone)
     book.save()
-    return "Contact updated."
+    return update_text_color(message, EnumColoramaText.SUCCESS)
 
 
 @input_error
 @capitalize_name
 def add_email(args: list, book: ContactBook) -> str:
     name, email, *_ = args
-    record = book.find(name)
+    contact = book.find(name)
+    message = "Contact updated."
 
-    if record is None:
-        return "Contact not found."
+    if contact is None:
+        return update_text_color(CONTACT_NOT_FOUND_MESSAGE, EnumColoramaText.WARNING)
 
-    record.add_email(email)
+    contact.add_email(email)
     book.save()
-    return "Contact updated."
+    return update_text_color(message, EnumColoramaText.SUCCESS)
 
 
 @input_error
@@ -57,14 +63,15 @@ def add_email(args: list, book: ContactBook) -> str:
 def add_address(args: list, book: ContactBook) -> str:
     name, *address_list = args
     address = " ".join(address_list)
-    record = book.find(name)
+    contact = book.find(name)
+    message = "Contact updated."
 
-    if record is None:
-        return "Contact not found."
+    if contact is None:
+        return update_text_color(CONTACT_NOT_FOUND_MESSAGE, EnumColoramaText.WARNING)
 
-    record.add_address(address)
+    contact.add_address(address)
     book.save()
-    return "Contact updated."
+    return update_text_color(message, EnumColoramaText.SUCCESS)
 
 
 @input_error
@@ -77,9 +84,10 @@ def edit_contact_name(args: list, book: ContactBook) -> str:
         new_name = new_name.lower().capitalize()
         book.rename(old_name, new_name)
         book.save()
-        return f"Name changed successfully."
+        message = "Name changed successfully."
+        return update_text_color(message, EnumColoramaText.SUCCESS)
 
-    return "Contact not found."
+    return update_text_color(CONTACT_NOT_FOUND_MESSAGE, EnumColoramaText.WARNING)
 
 
 @input_error
@@ -91,9 +99,10 @@ def edit_phone(args: list, book: ContactBook) -> str:
     if contact:
         contact.edit_phone(old_phone, new_phone)
         book.save()
-        return f"Phone changed successfully."
+        message = "Phone changed successfully."
+        return update_text_color(message, EnumColoramaText.SUCCESS)
 
-    return "Contact not found."
+    return update_text_color(CONTACT_NOT_FOUND_MESSAGE, EnumColoramaText.WARNING)
 
 
 @input_error
@@ -105,9 +114,10 @@ def edit_address(args: list, book: ContactBook) -> str:
     if contact:
         contact.edit_address(new_address)
         book.save()
-        return f"Name changed successfully."
+        message = "Name changed successfully."
+        return update_text_color(message, EnumColoramaText.SUCCESS)
 
-    return "Contact not found."
+    return update_text_color(CONTACT_NOT_FOUND_MESSAGE, EnumColoramaText.WARNING)
 
 
 @input_error
@@ -118,9 +128,10 @@ def contact_delete(args: list, book: ContactBook) -> str:
 
     if contact:
         book.delete(name).save()
-        return f"Contact delete."
+        message = "Contact deleted."
+        return update_text_color(message, EnumColoramaText.SUCCESS)
 
-    return "Contact not found."
+    return update_text_color(CONTACT_NOT_FOUND_MESSAGE, EnumColoramaText.WARNING)
 
 
 @input_error
@@ -132,21 +143,22 @@ def edit_email(args: list, book: ContactBook) -> str:
     if contact:
         contact.edit_email(new_email)
         book.save()
-        return f"Email changed successfully."
+        message = "Email changed successfully."
+        return update_text_color(message, EnumColoramaText.SUCCESS)
 
-    return "Contact not found."
+    return update_text_color(CONTACT_NOT_FOUND_MESSAGE, EnumColoramaText.WARNING)
 
 
 @input_error
 @capitalize_name
 def show_phone(args: list, book) -> str:
     name = args[0]
-    record = book.find(name)
+    contact = book.find(name)
 
-    if record:
-        return ", ".join(p.value for p in record.phones)
+    if contact:
+        return ", ".join(p.value for p in contact.phones)
 
-    return "Contact not found."
+    return update_text_color(CONTACT_NOT_FOUND_MESSAGE, EnumColoramaText.WARNING)
 
 
 @input_error
@@ -154,12 +166,13 @@ def show_phone(args: list, book) -> str:
 def show_contact(args: list, book):
     name = args[0]
     contact = book.find(name)
+
     if contact:
         return contact
-    return "Contact not found."
+    return update_text_color(CONTACT_NOT_FOUND_MESSAGE, EnumColoramaText.WARNING)
 
 
-def show_all(_: list, book: ContactBook) -> ContactBook:
+def show_all(_: list, book: ContactBook) -> str:
     return book
 
 
@@ -167,14 +180,15 @@ def show_all(_: list, book: ContactBook) -> ContactBook:
 @capitalize_name
 def add_birthday(args: list, book: ContactBook) -> str:
     name, date = args
-    record = book.find(name)
+    contact = book.find(name)
 
-    if record:
-        record.add_birthday(date)
+    if contact:
+        contact.add_birthday(date)
         book.save()
-        return f"Birthday added for {name}."
+        message = f"Birthday added for {name}."
+        return update_text_color(message, EnumColoramaText.SUCCESS)
     else:
-        return "Contact not found."
+        return update_text_color(CONTACT_NOT_FOUND_MESSAGE, EnumColoramaText.WARNING)
 
 
 @input_error
@@ -183,28 +197,31 @@ def edit_birthday(args: list, book: ContactBook) -> str:
     if len(args) < 2:
         return "Missing one or more arguments"
     name, date = args
-    record = book.find(name)
+    contact = book.find(name)
 
-    if record:
-        record.add_birthday(date)
+    if contact:
+        contact.add_birthday(date)
         book.save()
-        return f"Birthday changed to {datetime.strftime(record.birthday.birthday, "%d.%m.%Y")}"
+        message = f"Birthday changed to {datetime.strftime(contact.birthday.birthday, "%d.%m.%Y")}"
+        return update_text_color(message, EnumColoramaText.SUCCESS)
     else:
-        return "Contact not found."
+        return update_text_color(CONTACT_NOT_FOUND_MESSAGE, EnumColoramaText.WARNING)
 
 
 @capitalize_name
 def show_birthday(args: list, book: ContactBook) -> str:
     name = args[0]
-    record = book.find(name)
+    contact = book.find(name)
 
-    if record:
+    if contact:
         try:
-            return f"{name}'s birthday is {datetime.strftime(record.birthday.birthday, "%d.%m.%Y")}"
+            message = f"{name}'s birthday is {datetime.strftime(contact.birthday.birthday, "%d.%m.%Y")}"
+            return update_text_color(message, EnumColoramaText.SUCCESS)
         except AttributeError:
-            return f"No record about {name}'s birthday."
+            message = f"No record about {name}'s birthday."
+            return update_text_color(message, EnumColoramaText.WARNING)
 
-    return "Contact not found."
+    return update_text_color(CONTACT_NOT_FOUND_MESSAGE, EnumColoramaText.WARNING)
 
 
 def show_upcoming_birthdays(args: list, contact_book: ContactBook) -> str:

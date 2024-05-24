@@ -5,6 +5,7 @@ from tabulate import tabulate
 from src.handlers.error_handler import input_error
 from src.modules.note import Note
 from src.modules.note_book import NoteBook
+from src.utils.update_text_color import update_text_color, EnumColoramaText
 
 
 @input_error
@@ -12,18 +13,18 @@ def note_add(_: list, book: NoteBook) -> str:
     title = input("Enter a title: ")
 
     if not title:
-        return "Title is required."
+        return update_text_color("Title is required.", EnumColoramaText.WARNING)
 
     note = book.find(title)
 
     if note:
-        return f"Note '{note.title}' already exists."
-
+        return update_text_color(f"Note '{note.title}' already exists.", EnumColoramaText.WARNING)
+    
     content = input("Enter a content: ")
     note = Note(title, content)
     book.add(note)
     book.save()
-    return "Note added."
+    return update_text_color("Note added.", EnumColoramaText.SUCCESS)
 
 
 @input_error
@@ -31,12 +32,12 @@ def note_find_by_title(_: list, book: NoteBook) -> str:
     title = input("Enter a title: ")
 
     if not title:
-        return "Title is required."
+        return update_text_color("Title is required.", EnumColoramaText.WARNING)
 
     note = book.find(title)
 
     if note is None:
-        return "Note not found."
+        return update_text_color("Note not found.", EnumColoramaText.WARNING)
     return note
 
 
@@ -45,14 +46,14 @@ def note_find_by_tag(_: list, book: NoteBook) -> str:
     tags = input("Enter tags (separated by spaces or commas): ")
 
     if not tags:
-        return "Tags are required."
+        return update_text_color("Tags are required.", EnumColoramaText.WARNING)
 
     tags = [tag if tag.startswith('#') else f'#{tag}' for tag in re.split(r'[\s,]+', tags.strip())]
 
     found_notes = book.find_by_tag(tags)
 
     if not found_notes:
-        return "No notes found."
+        return update_text_color("No notes found.", EnumColoramaText.WARNING)
 
     wrapped_table = []
     for note in found_notes:
@@ -69,12 +70,12 @@ def note_change(_: list, book: NoteBook) -> str:
     title = input("Enter a title: ")
 
     if not title:
-        return "Title is required."
+        return update_text_color("Title is required.", EnumColoramaText.WARNING)
 
     note = book.find(title)
 
     if note is None:
-        return "Note not found."
+        return update_text_color("Note not found.", EnumColoramaText.WARNING)
 
     content = input(f"Edit the note ({note.content}): ")
 
@@ -83,7 +84,7 @@ def note_change(_: list, book: NoteBook) -> str:
 
     note.content = content
     book.save()
-    return "Note updated."
+    return update_text_color("Note updated.", EnumColoramaText.SUCCESS)
 
 
 @input_error
@@ -98,7 +99,7 @@ def note_delete(_: list, book: NoteBook) -> str:
     if note is None:
         return "Note not found."
     book.delete(note).save()
-    return "Note deleted."
+    return update_text_color("Note deleted.", EnumColoramaText.SUCCESS)
 
 
 def note_show_all(_: list, book: NoteBook) -> NoteBook:
