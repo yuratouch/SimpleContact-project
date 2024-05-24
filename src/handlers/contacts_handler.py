@@ -1,12 +1,11 @@
 from datetime import datetime
 from src.modules.contact_book import ContactBook
-from src.modules.birthday import Birthday
 from src.handlers.error_handler import input_error
 from src.utils.capitalizer import capitalize_name
 from src.utils.update_text_color import update_text_color, EnumColoramaText
 
-
 CONTACT_NOT_FOUND_MESSAGE = "Contact not found."
+
 
 @input_error
 @capitalize_name
@@ -25,7 +24,7 @@ def add_contact(args: list, book: ContactBook) -> str:
             message += " Phone didn't"
 
     book.save()
-    return  update_text_color(message, EnumColoramaText.SUCCESS)
+    return update_text_color(message, EnumColoramaText.SUCCESS)
 
 
 @input_error
@@ -172,7 +171,7 @@ def show_contact(args: list, book):
     return update_text_color(CONTACT_NOT_FOUND_MESSAGE, EnumColoramaText.WARNING)
 
 
-def show_all(_: list, book: ContactBook) -> str:
+def show_all(_: list, book: ContactBook) -> ContactBook:
     return book
 
 

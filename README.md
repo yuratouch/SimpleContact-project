@@ -78,7 +78,7 @@ Review the list of commands and their detailed descriptions.
 
 2.`contact-add-phone`:
 - **Function:** `add_phone`
-- **Description:** Add an additional phone number to an existing contact.
+- **Description:** Add a phone number to an existing contact.
 - **Steps:**
 1.Use the command `contact-add-phone` followed by the contact's name and the new phone number.
 2.Ensure the contact already exists.
