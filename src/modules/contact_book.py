@@ -1,0 +1,83 @@
+from datetime import datetime, timedelta
+from src.modules.book import Book
+from src.modules.contact import Contact
+from tabulate import tabulate
+import textwrap
+
+
+class ContactBook(Book):
+    def create(self, name: str) -> Contact:
+        contact = Contact(name=name)
+        self.add(contact)
+        return contact
+
+    def add(self, contact: Contact):
+        self.data[contact.name] = contact
+
+    def find(self, name: str) -> Contact:
+        for contact_name, contact in self.data.items():
+            if name == contact_name.value:
+                return contact
+
+    def rename(self, old_name: str, new_name: str):
+        old_contact = None
+        for contact_name, _ in self.data.items():
+            if old_name == contact_name.value:
+                old_contact = self.data.pop(contact_name)
+                break
+        if old_contact:
+            old_contact.edit_name(new_name)
+            self.add(old_contact)
+
+    def delete(self, name):
+        for contact_name, _ in self.data.items():
+            if name == contact_name.value:
+                self.data.pop(contact_name)
+                break
+
+    def get_upcoming_birthdays(self, next_days: int = 7) -> list:
+        current_date = datetime.today().date()
+        congratulations = []
+
+        for contact_name, contact in self.data.items():
+            contact_birthday = contact.birthday.birthday.date()
+            birthday_this_year = contact_birthday.replace(year=current_date.year)
+
+            if birthday_this_year < current_date:
+                continue
+
+            if (birthday_this_year - current_date).days > int(next_days):
+                continue
+
+            if birthday_this_year.weekday() == 5:
+                congratulation_date = birthday_this_year + timedelta(days=2)
+            elif birthday_this_year.weekday() == 6:
+                congratulation_date = birthday_this_year + timedelta(days=1)
+            else:
+                congratulation_date = birthday_this_year
+
+            congratulations.append(
+                {"name": contact_name.value, "congratulation_date": congratulation_date.strftime("%d.%m.%Y")})
+
+        return congratulations
+
+    def __str__(self):
+        wrapped_table = []
+
+        for contact in self.data.values():
+            contact_attributes = [contact.name, contact.phones, contact.email, contact.birthday, contact.address]
+            wrapped_attributes = []
+
+            for attribute in contact_attributes:
+                if isinstance(attribute, list):
+                    wrapped_attribute = textwrap.fill(", ".join(phone.value for phone in contact.phones), width=40)
+                elif attribute and attribute.value:
+                    wrapped_attribute = textwrap.fill(attribute.value, width=40)    
+                else:
+                    wrapped_attribute = " "
+                wrapped_attributes.append(wrapped_attribute)
+
+            wrapped_table.append(wrapped_attributes)
+        res = "\n" + tabulate(wrapped_table, headers=["Name", "Phone", "Email", "Date", "Address"], tablefmt="grid")
+        return res
+    
