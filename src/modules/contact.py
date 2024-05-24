@@ -1,4 +1,4 @@
-from src.modules.exceptions import PhoneVerificationError, EmailVerificationError
+from src.modules.exceptions import BirthdayVerificationError, PhoneVerificationError, EmailVerificationError
 from src.modules.name import Name
 from src.modules.phone import Phone
 from src.modules.birthday import Birthday
@@ -21,9 +21,8 @@ class Contact:
             self.phones.append(phone_number)
             return True
         except PhoneVerificationError as error_message:
-            print(update_text_color(error_message, EnumColoramaText(2)))
-
-            input_message = "Type phone one more time or 'exit' to get back: "
+            print(update_text_color(error_message, EnumColoramaText(3)))
+            input_message = "--- Type phone one more time or 'exit' to get back: "
             new_phone = input(update_text_color(input_message, EnumColoramaText(2)))
 
             if new_phone != "exit":
@@ -46,9 +45,22 @@ class Contact:
             exception_message = f"Phone already exist: {new}"
             raise Exception(update_text_color(exception_message, EnumColoramaText(2)))
 
-        for index in range(len(self.phones)):
-            if self.phones[index].value == old:
-                self.phones[index] = Phone(new)
+        try:
+            phone_old = Phone(old)
+            phone_new = Phone(new)
+            for index in range(len(self.phones)):
+                if self.phones[index].value == phone_old.value:
+                    self.phones[index] = phone_new
+        except PhoneVerificationError as error_message:
+            print(update_text_color(error_message, EnumColoramaText(3)))
+
+            input_message = "--- Type phone one more time or 'exit' to get back: "
+            new_phone = input(update_text_color(input_message, EnumColoramaText(2)))
+
+            if new_phone != "exit":
+                return self.edit_phone(old, new_phone)
+            
+            return False
 
     def find_phone(self, phone_input: str):
         for phone in self.phones:
@@ -58,8 +70,17 @@ class Contact:
     def add_birthday(self, birthday: str):
         try:
             self.birthday = Birthday(birthday)
-        except ValueError as e:
-            print(update_text_color(e, EnumColoramaText(3)))
+        except BirthdayVerificationError as error_message:
+            print(update_text_color(error_message, EnumColoramaText(3)))
+
+            input_message = "--- Type Birthday one more time or 'exit' to get back: "
+            new_birthday = input(update_text_color(input_message, EnumColoramaText(2)))
+            
+            if new_birthday != "exit":
+                return self.add_birthday(new_birthday)
+            
+            return False
+        
 
     def add_email(self, email: str):
         try:

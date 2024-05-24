@@ -1,6 +1,6 @@
 import re
-from src.modules.exceptions import EmailVerificationError
 from src.modules.field import Field
+from src.modules.exceptions import EmailVerificationError
 from src.utils.update_text_color import update_text_color, EnumColoramaText
 
 

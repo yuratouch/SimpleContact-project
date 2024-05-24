@@ -1,6 +1,8 @@
 from datetime import datetime, timedelta
 from src.modules.book import Book
 from src.modules.contact import Contact
+from tabulate import tabulate
+import textwrap
 
 
 class ContactBook(Book):
@@ -60,12 +62,22 @@ class ContactBook(Book):
         return congratulations
 
     def __str__(self):
-        res = "\n".join(
-            f"{record.name}"
-            f"{f'({record.birthday.value})' if record.birthday and record.birthday.value else ''}: "
-            f"{', '.join(phone.value for phone in record.phones) if record.phones else 'The contact has no phone'}"
-            f"{f' | Email: {record.email.value}' if record.email and record.email.value else ''}"
-            f"{f' | Address: {record.address.value}' if record.address and record.address.value else ''}"
-            for record in self.data.values()
-        )
+        wrapped_table = []
+
+        for contact in self.data.values():
+            contact_attributes = [contact.name, contact.phones, contact.email, contact.birthday, contact.address]
+            wrapped_attributes = []
+
+            for attribute in contact_attributes:
+                if isinstance(attribute, list):
+                    wrapped_attribute = textwrap.fill(", ".join(phone.value for phone in contact.phones), width=40)
+                elif attribute and attribute.value:
+                    wrapped_attribute = textwrap.fill(attribute.value, width=40)    
+                else:
+                    wrapped_attribute = " "
+                wrapped_attributes.append(wrapped_attribute)
+
+            wrapped_table.append(wrapped_attributes)
+        res = "\n" + tabulate(wrapped_table, headers=["Name", "Phone", "Email", "Date", "Address"], tablefmt="grid")
         return res
+    

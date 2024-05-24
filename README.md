@@ -7,25 +7,25 @@ Open your terminal and navigate to the application's root directory.
 
 2.Create a virtual environment for the application using the following command:
 
-<p style="color:blue"> python3 -m venv .venv</p>
+- python3 -m venv .venv</p>
 3. Activate your virtual environment (the specific command depends on your operating system):
 
 On Windows:
-<p style="color:blue">.venv\Scripts\activate</p>
+- .venv\Scripts\activate</p>
 
 On macOS/Linux:
-<p style="color:blue">source .venv/bin/activate</p>
+- source .venv/bin/activate</p>
 
 Install the required packages by running:
-<p style="color:blue">pip install -r requirements.txt</p>
+- pip install -r requirements.txt</p>
 To launch the application, execute the following command in the 
 
 terminal:
-<p style="color:blue">python app.py</p>
+- python app.py</p>
 
 4. For detailed information about a specific logging level, use the 
 following command:
-<p style="color:blue">python app.py --log-level DEBUG</p>
+- python app.py --log-level DEBUG</p>
 
 #### Enjoy the result.
 
@@ -74,8 +74,8 @@ Review the list of commands and their detailed descriptions.
 2.Ensure the contact already exists.
 3.Ensure the new phone number is in the correct format (only digits).
 - **Syntax:** `contact-add-phone *Name* *Phone*`
-- **Example:** contact-add-phone Oleksandr 📱1234567890
-- **Explanation:** This command adds a second phone number 1234567890 to the contact named Oleksandr.
+- **Example:** contact-add-phone Oleksandr 📱0974567890
+- **Explanation:** This command adds a second phone number 📱0974567890 to the contact named Oleksandr.
 
 3.`contact-add-birthday`:
 - **Function:** `add_birthday`
@@ -274,4 +274,4 @@ Review the list of commands and their detailed descriptions.
 - **Example:** `note-show-all`
 - **Explanation:** This command displays all notes that are currently stored
 
-<p style="color:blue"> Your team Pystreet Boys 🧑‍💻</p>   
+#### Your team Pystreet Boys 🧑‍💻  
