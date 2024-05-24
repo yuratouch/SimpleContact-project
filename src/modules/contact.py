@@ -4,6 +4,7 @@ from src.modules.phone import Phone
 from src.modules.birthday import Birthday
 from src.modules.email import Email
 from src.modules.address import Address
+from src.utils.update_text_color import update_text_color, EnumColoramaText
 
 
 class Contact:
@@ -20,9 +21,10 @@ class Contact:
             self.phones.append(phone_number)
             return True
         except PhoneVerificationError as error_message:
-            print(error_message)
-            new_phone = input(
-                "Type phone one more time or 'exit' to get back: ")  # TODO Use colorama here, some yellow color
+            print(update_text_color(error_message, EnumColoramaText(2)))
+
+            input_message = "Type phone one more time or 'exit' to get back: "
+            new_phone = input(update_text_color(input_message, EnumColoramaText(2)))
 
             if new_phone != "exit":
                 return self.add_phone(new_phone)
@@ -37,12 +39,12 @@ class Contact:
 
     def edit_phone(self, old: str, new: str):
         if self.find_phone(old) is None:
-            # TODO: change exception for this case (old phone not found)
-            raise Exception(f"Phone not found: {old}")
+            exception_message = f"Phone not found: {old}"
+            raise Exception(update_text_color(exception_message, EnumColoramaText(2)))
 
         if self.find_phone(new):
-            # TODO: change exception for this case (new phone already exist)
-            raise Exception(f"Phone already exist: {new}")
+            exception_message = f"Phone already exist: {new}"
+            raise Exception(update_text_color(exception_message, EnumColoramaText(2)))
 
         for index in range(len(self.phones)):
             if self.phones[index].value == old:
@@ -57,16 +59,17 @@ class Contact:
         try:
             self.birthday = Birthday(birthday)
         except ValueError as e:
-            print(e)
+            print(update_text_color(e, EnumColoramaText(3)))
 
     def add_email(self, email: str):
         try:
             self.email = Email(email)
             return True
         except EmailVerificationError as error_message:
-            print(error_message)
-            new_email = input(
-                "Type Email one more time or 'exit' to get back: ")  # TODO Use colorama here, some yellow color
+            print(update_text_color(error_message, EnumColoramaText(2)))
+
+            input_message = "Type Email one more time or 'exit' to get back: "
+            new_email = input(update_text_color(input_message, EnumColoramaText(2)))
 
             if new_email != "exit":
                 return self.add_email(new_email)
@@ -75,8 +78,9 @@ class Contact:
 
     def edit_email(self, new_email: str):
         if self.email and new_email == self.email.value:
-            # TODO: change exception for this case (This email is already saved to this contact)
-            raise Exception("This email is already saved to this contact")
+            exception_message = "This email is already saved to this contact"
+            raise Exception(update_text_color(exception_message, EnumColoramaText(2)))
+        
         self.email = Email(new_email)
 
     def add_address(self, address: str):
@@ -84,8 +88,8 @@ class Contact:
 
     def edit_address(self, new_address: str):
         if self.address and new_address == self.address.value:
-            # TODO: change exception for this case (This address is already saved to this contact)
-            raise Exception(new_address)
+            exception_message = "This address is already saved to this contact"
+            raise Exception(update_text_color(exception_message, EnumColoramaText(2)))
 
         self.address = Address(new_address)
 
