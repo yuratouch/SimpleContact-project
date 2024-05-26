@@ -9,12 +9,11 @@ class ContactBook(Book):
         self.add(contact)
         return contact
 
+    def show_all(self):
+        return self.data.values()
+
     def add(self, contact: Contact):
         self.data[contact.name] = contact
-
-    # TODO: Add edit method for ContactBook / SC-9. Feature-1. Save contacts.
-    def edit(self, contact):
-        pass
 
     def find(self, name: str) -> Contact:
         for contact_name, contact in self.data.items():
@@ -73,4 +72,3 @@ class ContactBook(Book):
             for record in self.data.values()
         )
         return res
-

@@ -90,8 +90,18 @@ class Contact:
         self.address = Address(new_address)
 
     def __str__(self):
-        return (f"Contact name: {self.name.value},"
-                f" phones: {'; '.join(p.value for p in self.phones)},"
-                f" birthday: {self.birthday}"
-                f" email: {self.email}"
-                f" address: {self.address}")
+        parts = [f"Contact:\nName: {self.name.value}"]
+
+        if self.phones:
+            parts.append(f"Phones: {'; '.join(p.value for p in self.phones)}")
+
+        if self.birthday:
+            parts.append(f"Birthday: {self.birthday}")
+
+        if self.email:
+            parts.append(f"Email: {self.email}")
+
+        if self.address:
+            parts.append(f"Address: {self.address}")
+
+        return "\n".join(parts)

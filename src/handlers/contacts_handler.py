@@ -3,6 +3,7 @@ from src.modules.contact_book import ContactBook
 from src.modules.birthday import Birthday
 from src.modules.exceptions import PhoneVerificationError
 from src.handlers.error_handler import input_error
+from src.modules.phone import Phone
 from src.utils.capitalizer import capitalize_name
 
 
@@ -68,9 +69,11 @@ def add_address(args: list, book: ContactBook) -> str:
 
 
 @input_error
-@capitalize_name
-def edit_contact(args: list, book: ContactBook) -> str:
-    old_name, new_name = args
+def edit_contact(old_name: str, book: ContactBook) -> str:
+    new_name = input("Enter a new name: ")
+
+    if not new_name:
+        return "New name is required."
     contact = book.find(old_name)
 
     if contact:
@@ -83,9 +86,13 @@ def edit_contact(args: list, book: ContactBook) -> str:
 
 
 @input_error
-@capitalize_name
-def edit_phone(args: list, book: ContactBook) -> str:
-    name, old_phone, new_phone = args
+def edit_phone(name: str, old_phone: str, book: ContactBook) -> str:
+    new_phone = input("Enter a new phone: ")
+
+    if not new_phone:
+        return "New phone is required."
+
+    # name, old_phone, new_phone = args
     contact = book.find(name)
 
     if contact:
@@ -118,40 +125,31 @@ def edit_email(args: list, book: ContactBook) -> str:
     return "Contact not found."
 
 
-@capitalize_name
 @input_error
-def change_contact(args: list, book: ContactBook) -> str:
-    name, old, new = args
-    contact = book.find(name)
-
-    if contact:
-        contact.edit_phone(old, new)
-        return f"Number changed successfully."
-    return "Contact not found."
-
-
-@input_error
-@capitalize_name
-def show_phone(args: list, book) -> str:
-    name = args[0]
+def show_phone(name: str, book) -> list[Phone]:
     record = book.find(name)
     if record:
-        return ", ".join(p.value for p in record.phones)
+        return record.phones
 
-    return "Contact not found."
+    return []
 
 
+# @capitalize_name
 @input_error
-@capitalize_name
-def show_contact(args: list, book):
-    name = args[0]
+def show_contact(book: ContactBook):
+    name = input("Enter a name: ")
+
+    if not name:
+        return "Name is required."
+
+    # name = args[0]
     contact = book.find(name)
     if contact:
         return contact
     return "Contact not found."
 
 
-def show_all(_: list, book: ContactBook) -> str:
+def show_all(_: list, book: ContactBook) -> ContactBook:
     return book
 
 
@@ -169,6 +167,7 @@ def add_birthday(args: list, book) -> str:
             return "Invalid date format. Please enter date in format DD.MM.YYYY"
     else:
         return "Contact not found."
+
 
 @input_error
 @capitalize_name
