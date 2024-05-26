@@ -126,7 +126,8 @@ def contact_delete(args: list, book: ContactBook) -> str:
     contact = book.find(name)
 
     if contact:
-        book.delete(name).save()
+        book.delete(name)
+        book.save()
         message = "Contact deleted."
         return update_text_color(message, EnumColoramaText.SUCCESS)
 
@@ -150,7 +151,7 @@ def edit_email(args: list, book: ContactBook) -> str:
 
 @input_error
 @capitalize_name
-def show_phone(args: list, book) -> str:
+def show_phone(args: list, book: ContactBook) -> str:
     name = args[0]
     contact = book.find(name)
 
@@ -162,7 +163,7 @@ def show_phone(args: list, book) -> str:
 
 @input_error
 @capitalize_name
-def show_contact(args: list, book):
+def show_contact(args: list, book: ContactBook):
     name = args[0]
     contact = book.find(name)
 

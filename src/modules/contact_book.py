@@ -1,11 +1,15 @@
 from datetime import datetime, timedelta
+from src.modules.phone import Phone
 from src.modules.book import Book
+from src.modules.name import Name
 from src.modules.contact import Contact
 from tabulate import tabulate
 import textwrap
 
 
 class ContactBook(Book):
+    data: dict[Name, Contact]
+
     def create(self, name: str) -> Contact:
         contact = Contact(name=name)
         self.add(contact)
@@ -63,19 +67,26 @@ class ContactBook(Book):
 
     def __str__(self):
         wrapped_table = []
+        values = self.data.values()
+
+        if len(values) == 0:
+            print("Empty")
 
         for contact in self.data.values():
-            contact_attributes = [contact.name, contact.phones, contact.email, contact.birthday, contact.address]
+            contact_attributes = [
+                contact.name.value if contact.name.value else None,
+                ", ".join(phone.value for phone in contact.phones) if contact.phones else None,
+                contact.email.value if contact.email else None,
+                contact.birthday.birthday.strftime("%d.%m.%Y") if contact.birthday else None,
+                contact.address.value if contact.address else None
+            ]
             wrapped_attributes = []
 
             for attribute in contact_attributes:
-                if isinstance(attribute, list):
-                    wrapped_attribute = textwrap.fill(", ".join(phone.value for phone in contact.phones), width=40)
-                elif attribute and attribute.value:
-                    wrapped_attribute = textwrap.fill(attribute.value, width=40)    
+                if attribute:
+                    wrapped_attributes.append(textwrap.fill(attribute, width=40))
                 else:
-                    wrapped_attribute = " "
-                wrapped_attributes.append(wrapped_attribute)
+                    wrapped_attributes.append(" ")
 
             wrapped_table.append(wrapped_attributes)
         res = "\n" + tabulate(wrapped_table, headers=["Name", "Phone", "Email", "Date", "Address"], tablefmt="grid")
