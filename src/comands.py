@@ -1,3 +1,4 @@
+import os
 from src.handlers.notes_handler import (note_show_all, note_add, note_change, note_delete,
                                         note_find_by_title, note_find_by_tag)
 from src.handlers.contacts_handler import (add_contact, add_phone, show_phone,
@@ -96,7 +97,10 @@ comands_dict = {
         "function": note_show_all,
         "description": "Display all notes. Syntax: note-show-all",
     },
-
+    "clear": {
+        "function": lambda *_: os.system("clear"),
+        "description": "Clear screen. Syntax: clear",
+    },
     "help": {
         "function": lambda d: '\n'.join([f"{key:<25} - {value['description']}" for key, value in d.items()]),
         "description": "Show this message",
