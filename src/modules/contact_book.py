@@ -43,7 +43,7 @@ class ContactBook(Book):
         congratulations = []
 
         for contact_name, contact in self.data.items():
-            if contact.birthday is not None:
+            if contact.birthday:
                 contact_birthday = contact.birthday.birthday.date()
                 birthday_this_year = contact_birthday.replace(year=current_date.year)
 
