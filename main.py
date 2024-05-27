@@ -1,3 +1,4 @@
+import os
 from src.comands import comands_dict
 from src.utils.command_completer import CommandCompleter
 from src.utils.input_parser import parse_input
@@ -9,6 +10,7 @@ def main():
     contact_book = get_contacts(save_contacts_book)
     note_book = get_notes(save_note_book)
 
+    os.system("clear")
     print("Welcome to the assistant bot!")
     completer = CommandCompleter(comands_dict)
 
@@ -20,8 +22,10 @@ def main():
             if command == "exit":
                 print(comands_dict[command]["function"](args))
                 break
-            if command == "help":
+            elif command == "help":
                 print(comands_dict[command]["function"](comands_dict))
+            elif command == "clear":
+                comands_dict[command]["function"](comands_dict)
             elif command.startswith("note-"):
                 print(comands_dict[command]["function"](args, note_book))
             elif command.startswith("contact-"):
