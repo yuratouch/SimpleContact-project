@@ -99,7 +99,7 @@ comands_dict = {
     },
     "clear": {
         "function": lambda *_: os.system("clear"),
-        "description": "Show this message",
+        "description": "Clear screen. Syntax: clear",
     },
     "help": {
         "function": lambda d: '\n'.join([f"{key:<25} - {value['description']}" for key, value in d.items()]),
