@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-from src.modules.phone import Phone
 from src.modules.book import Book
 from src.modules.name import Name
 from src.modules.contact import Contact
@@ -44,24 +43,25 @@ class ContactBook(Book):
         congratulations = []
 
         for contact_name, contact in self.data.items():
-            contact_birthday = contact.birthday.birthday.date()
-            birthday_this_year = contact_birthday.replace(year=current_date.year)
+            if contact.birthday:
+                contact_birthday = contact.birthday.birthday.date()
+                birthday_this_year = contact_birthday.replace(year=current_date.year)
 
-            if birthday_this_year < current_date:
-                continue
+                if birthday_this_year < current_date:
+                    continue
 
-            if (birthday_this_year - current_date).days > int(next_days):
-                continue
+                if (birthday_this_year - current_date).days > int(next_days):
+                    continue
 
-            if birthday_this_year.weekday() == 5:
-                congratulation_date = birthday_this_year + timedelta(days=2)
-            elif birthday_this_year.weekday() == 6:
-                congratulation_date = birthday_this_year + timedelta(days=1)
-            else:
-                congratulation_date = birthday_this_year
+                if birthday_this_year.weekday() == 5:
+                    congratulation_date = birthday_this_year + timedelta(days=2)
+                elif birthday_this_year.weekday() == 6:
+                    congratulation_date = birthday_this_year + timedelta(days=1)
+                else:
+                    congratulation_date = birthday_this_year
 
-            congratulations.append(
-                {"name": contact_name.value, "congratulation_date": congratulation_date.strftime("%d.%m.%Y")})
+                congratulations.append(
+                    {"name": contact_name.value, "congratulation_date": congratulation_date.strftime("%d.%m.%Y")})
 
         return congratulations
 
